@@ -7,15 +7,7 @@ Numbering: next free number after highest existing.
 ## Phase 1 — MVP (core booking loop)
 
 ## TASK-001: Repo scaffolding
-OWNER: (none)
-STARTED: (none)
-STATUS: pending
-
-- Root `package.json` with workspaces (backend/frontend) OR separate packages.
-- Backend: Node + Express + TS setup, tsconfig, build/lint scripts.
-- Frontend: Vite + React 18 + TS + Tailwind setup.
-- `.env.example`, `.gitignore`, README quick-start verified.
-- DONE when: `npm install` works and both dev servers boot on clean clone.
+STATUS: in_progress (moved to `in-progress.md`, claimed by `opencode/manvar` on 2026-08-17)
 
 ## TASK-002: Local infra — Docker Compose + Prisma init
 OWNER: (none)
