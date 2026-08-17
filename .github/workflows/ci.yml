@@ -1,0 +1,16 @@
+# CI — CampusConnect
+# STUB: workflow_dispatch only. Once code (package.json) lands, add
+# triggers and real jobs (npm ci / lint / typecheck / test / build).
+
+name: CI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  placeholder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Repo ready for CI
+        run: echo "CI will be activated when package.json and tests exist."
