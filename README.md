@@ -27,12 +27,16 @@ src/                      (future) application code
 4. If a session ends mid-task, a handoff file is written to `tasks/handoffs/`.
 5. The repo is the single source of truth. No important context lives only in a private AI chat.
 
-## Quick Start (once code exists)
+## Quick Start
 
 ```bash
 npm install
 cp .env.example .env   # fill real values, never commit .env
-npm run dev
+npm run dev            # backend http://localhost:3001 + frontend http://localhost:5173
 ```
+
+Root scripts: `npm run dev` (both), `npm run lint`, `npm run typecheck`, `npm run build`. Workspace scripts: `npm run <script> -w backend` / `-w frontend`.
+
+Health check: `GET http://localhost:3001/api/system/health`.
 
 See `docs/ideacontext.md` §16 for the full dev guide.

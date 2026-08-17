@@ -25,3 +25,11 @@ Every meaningful decision is recorded here. Do not re-litigate locked decisions 
 - **Reason:** GitHub Issues are optional (repo may be private/small); the repo is the single source of truth for AI agents; owner stamps prevent duplicate work.
 - **Alternatives considered:** GitHub Issues only — not all agents read issues reliably.
 - **Consequences:** Agents MUST update `tasks/` files in the same commit as their code. Agent IDs are registered in `tasks/README.md`.
+
+## DEC-004: Monorepo with npm workspaces + toolchain
+
+- **Date:** 2026-08-17
+- **Decision:** Root `package.json` with npm workspaces (`backend`, `frontend`). Backend: Express 5 + TypeScript, `tsx` dev runner, `tsc` build, port 3001. Frontend: Vite 6 + React 18 (spec-pinned) + TypeScript + Tailwind CSS v4 (`@tailwindcss/vite`), port 5173, dev proxy `/api → localhost:3001`. ESLint 9 flat config at root with `typescript-eslint`. Root `dev` script boots both servers via `concurrently`. CI runs lint/typecheck/build on every PR and push.
+- **Reason:** One `npm install` + one `npm run dev` boots the whole stack; shared lint/typecheck; matches the TASK-001 definition ("workspaces OR separate packages") and `docs/architecture.md`. React 18 is pinned because the spec targets React 18 (Vite would default to React 19).
+- **Alternatives considered:** Separate packages without workspaces — more manual wiring. React 19 — spec explicitly targets React 18.
+- **Consequences:** Root scripts are the single entry point (`npm run dev | lint | typecheck | build`); workspace scripts run via `npm run <script> -w <pkg>`. Only API so far: `GET /api/system/health`. Tests job added to CI when a test framework exists.

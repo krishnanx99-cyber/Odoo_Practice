@@ -1,0 +1,27 @@
+{
+  "name": "campusconnect",
+  "version": "0.1.0",
+  "private": true,
+  "description": "College event and resource booking system",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "dev": "concurrently -n backend,frontend -c blue,green \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "npm run dev -w backend",
+    "dev:frontend": "npm run dev -w frontend",
+    "build": "npm run build -w backend && npm run build -w frontend",
+    "lint": "eslint .",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "concurrently": "^9.1.0",
+    "eslint": "^9.0.0",
+    "typescript-eslint": "^8.0.0"
+  }
+}

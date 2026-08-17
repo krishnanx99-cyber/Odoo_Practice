@@ -6,9 +6,6 @@ Numbering: next free number after highest existing.
 
 ## Phase 1 — MVP (core booking loop)
 
-## TASK-001: Repo scaffolding
-STATUS: in_progress (moved to `in-progress.md`, claimed by `opencode/manvar` on 2026-08-17)
-
 ## TASK-002: Local infra — Docker Compose + Prisma init
 OWNER: (none)
 STARTED: (none)

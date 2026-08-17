@@ -1,10 +1,7 @@
 # CI — CampusConnect
 # Runs on every pull request and on pushes to main.
-# Current stage: config-only repo, no package.json yet.
-# The placeholder job only verifies required workflow files exist.
-# When application code lands (package.json present), add real jobs:
-#   lint / typecheck / tests / build — using the project's actual scripts.
-# Do not invent commands the app does not have.
+# Uses the project's actual scripts: lint, typecheck, build.
+# Tests will be added once a test framework exists (TASK backlog).
 
 name: CI
 
@@ -14,15 +11,19 @@ on:
     branches: [main]
 
 jobs:
-  repo-check:
+  lint-typecheck-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verify workflow files exist
-        run: |
-          test -f AGENTS.md
-          test -f docs/current-state.md
-          test -f tasks/in-progress.md
-          test -f tasks/backlog.md
-      - name: Status
-        run: echo "CI placeholder active. Real lint/typecheck/test/build jobs will be added when package.json exists."
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Build
+        run: npm run build

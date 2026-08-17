@@ -1,6 +1,6 @@
 # Architecture — CampusConnect
 
-Status: PLANNED (not yet implemented). This documents the intended architecture from `docs/ideacontext.md` §4. Update this file as the real implementation diverges.
+Status: PARTIALLY IMPLEMENTED (scaffold only; features planned). Update this file as the real implementation diverges.
 
 ## High-level layout
 
@@ -47,3 +47,11 @@ Auth, Users, Departments, Events + Registrations, Resources + Availability + Bla
 - Follow API contracts in `docs/ideacontext.md` §6 and `docs/api-contracts.md`.
 - Follow DB conventions in `docs/ideacontext.md` §5 and `docs/database-schema.md`.
 - Validate all input. Handle loading/error/empty states in UI.
+
+## Implemented so far (TASK-001)
+
+- Monorepo: root `package.json` (npm workspaces) + root ESLint flat config.
+- `backend/`: Express 5 + TS app (`src/index.ts`, `src/app.ts`, `src/config/env.ts`, `src/api/routes/system.routes.ts`). Serves `GET /api/system/health`; JSON 404 handler; port 3001; ESM (`"type": "module"`, NodeNext).
+- `frontend/`: Vite 6 + React 18 + Tailwind v4 (`src/main.tsx`, `src/App.tsx`, `src/index.css`); dev proxy `/api → http://localhost:3001`; port 5173 (auto-increments if busy).
+- CI: `.github/workflows/ci.yml` runs `npm ci` + lint + typecheck + build on PR and push to `main`.
+- Toolchain decisions recorded in `docs/decisions.md` DEC-004.
