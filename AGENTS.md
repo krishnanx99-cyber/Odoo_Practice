@@ -24,7 +24,8 @@ Every AI agent MUST complete all of these in order before writing any code:
 7. Check `tasks/handoffs/` — read any handoff for your task/area.
 8. Run `git status` and `git log --oneline -10` — know the current repo state.
 9. Pull latest `main`.
-10. Write a short implementation plan in the task file (or your reply) — then implement.
+10. Write a short implementation plan in the task file (or your reply).
+11. Create a feature branch `feat/task-XXX` — then implement. Never work directly on `main`.
 
 ## Task System — Mandatory
 
@@ -52,11 +53,16 @@ STATUS: pending | in_progress | completed | blocked
 
 ### Claim protocol
 
-1. Pick a task from `backlog.md`. If none fits, create a new entry (get a new TASK number from the highest existing number).
-2. Move it to `in-progress.md`, add `OWNER` + `STARTED` + your plan.
-3. Implement.
-4. On completion: move entry to `completed.md`, add `DONE: <date>` and one-line summary. Commit task-file updates together with your code in the same commit.
-5. If you CANNOT finish: write a handoff file (see below) and update `in-progress.md` status to `blocked`.
+1. `git pull` latest `main`.
+2. Check `tasks/in-progress.md` and `tasks/handoffs/` — confirm the task is unclaimed. If another agent already owns it, STOP and coordinate.
+3. Register/confirm your agent ID in `tasks/README.md`.
+4. Create the feature branch `feat/task-XXX` from `main`.
+5. Move the task to `in-progress.md`: add `OWNER` + `STARTED` + your one-line plan.
+6. Commit the task-claim change and push the branch — the ownership claim must exist in Git BEFORE coding.
+7. Implement on that branch.
+8. On completion: move entry to `completed.md`, add `DONE: <date>` and one-line summary. Commit task-file updates together with your code.
+9. Push the branch and open a PR for review; merge into `main` only after review + CI passes.
+10. If you CANNOT finish: write a handoff file (see below) and update `in-progress.md` status to `blocked`.
 
 ### Conflict rule
 
@@ -64,12 +70,15 @@ Never start work on an area that appears in `in-progress.md` owned by another ag
 
 ## Git Workflow
 
-- **Branch:** work directly on `main`.
-- **Before coding:** `git pull` to get latest.
+- **Branch per task:** create `feat/task-XXX` from latest `main`. Never work directly on `main`.
+- **Claim before coding:** update `tasks/in-progress.md` (OWNER + STARTED + plan), commit the claim, push the branch — then implement.
+- **Before coding:** `git pull` latest `main`.
 - **Before committing:** `git status`, `git diff` — review exactly what changed.
 - **Commits:** small, logical, descriptive messages. One task = ideally one or few commits.
+- **PR:** push the branch, open a pull request, request review (human or another AI), wait for CI.
+- **Merge:** into `main` only after review + CI passes (squash-merge).
 - **Never:** force-push, rewrite shared history, `git reset --hard`, delete branches/tags others may use.
-- **Task files commit WITH code** in the same commit (task moved pending→in_progress→completed as appropriate).
+- **Task files commit WITH code** in the same branch/PR (task moved pending→in_progress→completed as appropriate; the initial claim is its own commit).
 - **Never commit secrets** (`.env`, keys, tokens, passwords).
 
 ## Coding Rules

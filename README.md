@@ -23,7 +23,7 @@ src/                      (future) application code
 
 1. Every session starts by reading `AGENTS.md` + `docs/current-state.md` + `tasks/in-progress.md`.
 2. Work is tracked in `tasks/` with owner stamps — no duplicate work.
-3. Work directly on `main`, small commits, pull before coding, review diff before commit.
+3. Work on a feature branch `feat/task-XXX` per task, push, open a PR, review, then merge to `main`. Never work directly on `main`.
 4. If a session ends mid-task, a handoff file is written to `tasks/handoffs/`.
 5. The repo is the single source of truth. No important context lives only in a private AI chat.
 

@@ -1,16 +1,28 @@
 # CI — CampusConnect
-# STUB: workflow_dispatch only. Once code (package.json) lands, add
-# triggers and real jobs (npm ci / lint / typecheck / test / build).
+# Runs on every pull request and on pushes to main.
+# Current stage: config-only repo, no package.json yet.
+# The placeholder job only verifies required workflow files exist.
+# When application code lands (package.json present), add real jobs:
+#   lint / typecheck / tests / build — using the project's actual scripts.
+# Do not invent commands the app does not have.
 
 name: CI
 
 on:
-  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main]
 
 jobs:
-  placeholder:
+  repo-check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Repo ready for CI
-        run: echo "CI will be activated when package.json and tests exist."
+      - name: Verify workflow files exist
+        run: |
+          test -f AGENTS.md
+          test -f docs/current-state.md
+          test -f tasks/in-progress.md
+          test -f tasks/backlog.md
+      - name: Status
+        run: echo "CI placeholder active. Real lint/typecheck/test/build jobs will be added when package.json exists."

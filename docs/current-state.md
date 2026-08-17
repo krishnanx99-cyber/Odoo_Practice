@@ -7,6 +7,7 @@ Last updated: 2026-08-17
 - Project idea/spec: `docs/ideacontext.md` (full spec: features, schema, API, UI, roadmap, security, deployment).
 - Team workflow scaffolding: `AGENTS.md`, `tasks/` system, docs/ conventions, `.gitignore`, `.env.example`.
 - Git repository initialized on GitHub (`main` branch).
+- Workflow switched to feature-branch + PR per task (see `docs/decisions.md` DEC-002).
 
 ## What is being developed
 
@@ -29,7 +30,7 @@ Last updated: 2026-08-17
 
 - Stack locked to MERN-style (React + Node/Express + PostgreSQL + Prisma). See `docs/decisions.md`.
 - Repo/folder name is `Odoo_Practice` for historical reasons — the stack is NOT Odoo.
-- Git workflow: direct pushes to `main`. Discipline enforced via `tasks/`.
+- Git workflow: feature-branch + PR per task. Never work directly on `main`. Discipline enforced via `tasks/` + PR review + CI.
 
 ## API status
 

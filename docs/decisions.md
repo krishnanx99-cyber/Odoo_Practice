@@ -10,13 +10,13 @@ Every meaningful decision is recorded here. Do not re-litigate locked decisions 
 - **Alternatives considered:** Odoo module (Python/XML) — rejected for this project.
 - **Consequences:** All tooling, docs, and tasks assume MERN. Odoo-specific guidance must not be introduced.
 
-## DEC-002: Git workflow — direct pushes to `main`
+## DEC-002: Git workflow — feature branches + PR (supersedes direct-main)
 
-- **Date:** 2026-08-17
-- **Decision:** All agents/developers work directly on `main`; no feature branches required.
-- **Reason:** Small team + AI agents, hackathon pace; task tracking in `tasks/` provides the safety net instead of branches.
-- **Alternatives considered:** Per-task branches + PR review — slower, needs a reviewer per PR.
-- **Consequences:** Requires discipline: always `git pull` first, small commits, update `tasks/` before/after each task, never force-push. PRs still welcome for major changes.
+- **Date:** 2026-08-17 (amended)
+- **Decision:** Each task is developed on a feature branch `feat/task-XXX` created from `main`, then merged into `main` via pull request after review + CI passes. Never work directly on `main`.
+- **Reason:** Multiple AI agents work concurrently on real code. Feature branches isolate incomplete work; PRs add a review gate; CI runs per PR; `main` stays green. The initial direct-main setup was acceptable for config-only scaffolding but is not safe for shared application development.
+- **Alternatives considered:** Direct pushes to `main` (original choice, superseded) — no isolation, no review gate, concurrent-edit conflicts, and a broken push blocks everyone.
+- **Consequences:** Every task follows: claim commit on branch → implementation commits → push → PR → review → CI passes → squash-merge. Slightly more overhead per task, much safer with multiple agents.
 
 ## DEC-003: Task tracking lives in the repo (`tasks/`)
 
