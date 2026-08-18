@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../lib/AuthContext";
 import { EmptyState, Input, Tab } from "../components/ui";
+import EventsView from "../components/events/EventsView";
 
 type HomeView = "events" | "resources";
 
@@ -47,10 +48,7 @@ function HomePage() {
 
       <section aria-live="polite">
         {view === "events" ? (
-          <EmptyState
-            title="No events found."
-            description="Published events will appear here."
-          />
+          <EventsView search={search} />
         ) : (
           <EmptyState
             title="No resources found."
