@@ -77,12 +77,8 @@ STATUS: done
 ## Phase 6 — Resource Booking
 
 ### TASK-015: Booking form
-OWNER: (none)
-STARTED: (none)
-STATUS: pending
-
-- Resource summary, date/start/end time, duration, conditional quantity, reason, special requirements, student info, summary, cancel, submit.
-- Deps: TASK-014, TASK-008.
+OWNER: opencode/nishant (done — see completed.md)
+STATUS: done
 
 ### TASK-016: Availability validation
 OWNER: (none)
