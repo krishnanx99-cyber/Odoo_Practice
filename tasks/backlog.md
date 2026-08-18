@@ -99,8 +99,8 @@ STATUS: pending
 ## Phase 7 — My Bookings
 
 ### TASK-018: My Bookings page
-OWNER: opencode/nishant (claimed — see in-progress.md)
-STATUS: in_progress
+OWNER: opencode/nishant (done — see completed.md)
+STATUS: done
 
 ### TASK-019: Booking actions
 OWNER: (none)
