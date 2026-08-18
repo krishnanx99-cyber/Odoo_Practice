@@ -14,14 +14,6 @@ STATUS: completed
 
 ## Phase 1 — Foundation
 
-### TASK-003: Supabase client setup
-OWNER: (none)
-STARTED: (none)
-STATUS: pending
-
-- Supabase project config, frontend client, env vars, typed access pattern. NO service-role key in frontend.
-- Deps: TASK-001.
-
 ## Phase 2 — Database
 
 ### TASK-005: Initial Supabase schema
