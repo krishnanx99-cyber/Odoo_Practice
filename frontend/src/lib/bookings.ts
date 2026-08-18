@@ -87,6 +87,25 @@ export async function fetchMyBookings(userId: string): Promise<BookingWithResour
   return (data ?? []) as BookingWithResource[];
 }
 
+export async function fetchBookingById(
+  bookingId: string,
+  userId: string,
+): Promise<BookingWithResource | null> {
+  const { data, error } = await supabase
+    .from("bookings")
+    .select(
+      "id, resource_id, user_id, start_time, end_time, quantity, status, booking_reason, special_requirements, rejection_reason, rejected_at, cancelled_at, created_at, resources(name, category, image_url, locations(name))",
+    )
+    .eq("id", bookingId)
+    .eq("user_id", userId)
+    .maybeSingle();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  return (data ?? null) as BookingWithResource | null;
+}
+
 export async function cancelBooking(bookingId: string): Promise<{ error: string | null }> {
   const { error } = await supabase
     .from("bookings")

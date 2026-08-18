@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { Button, EmptyState, ErrorState, StatusBadge } from "../components/ui";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useAuth } from "../lib/AuthContext";
@@ -55,7 +56,6 @@ function BookingCard({ booking, history, onCancel, cancelling }: BookingCardProp
   const name = resource?.name ?? "Resource";
   const duration = formatDuration(booking.start_time, booking.end_time);
   const [confirmingCancel, setConfirmingCancel] = useState(false);
-  const [showDetails, setShowDetails] = useState(false);
   const cancellable = booking.status === "pending" || booking.status === "approved";
 
   return (
@@ -133,41 +133,6 @@ function BookingCard({ booking, history, onCancel, cancelling }: BookingCardProp
           </div>
         ) : null}
 
-        {showDetails ? (
-          <div className="mt-2 flex flex-col gap-2 rounded-[0.5rem] border-2 border-outline bg-surface-container-low p-3 text-sm">
-            {booking.booking_reason ? (
-              <div className="flex items-start gap-2">
-                <span aria-hidden className="material-symbols-outlined text-lg text-on-surface-variant">
-                  edit_note
-                </span>
-                <p className="text-on-surface">
-                  <span className="font-bold">Reason:</span> {booking.booking_reason}
-                </p>
-              </div>
-            ) : null}
-            {booking.special_requirements ? (
-              <div className="flex items-start gap-2">
-                <span aria-hidden className="material-symbols-outlined text-lg text-on-surface-variant">
-                  build
-                </span>
-                <p className="text-on-surface">
-                  <span className="font-bold">Special requirements:</span>{" "}
-                  {booking.special_requirements}
-                </p>
-              </div>
-            ) : null}
-            <div className="flex items-start gap-2">
-              <span aria-hidden className="material-symbols-outlined text-lg text-on-surface-variant">
-                calendar_month
-              </span>
-              <p className="text-on-surface">
-                <span className="font-bold">Requested:</span>{" "}
-                {new Date(booking.created_at).toLocaleString()}
-              </p>
-            </div>
-          </div>
-        ) : null}
-
         <div className="mt-auto flex gap-3 pt-6">
           {cancellable ? (
             confirmingCancel ? (
@@ -204,16 +169,14 @@ function BookingCard({ booking, history, onCancel, cancelling }: BookingCardProp
               </Button>
             )
           ) : null}
-          {booking.status === "rejected" || booking.status === "completed" || booking.status === "cancelled" ? (
-            <Button
-              size="sm"
-              variant={cancellable ? "ghost" : "secondary"}
-              className={cancellable ? "" : "flex-1"}
-              onClick={() => setShowDetails((prev) => !prev)}
-            >
-              {booking.status === "rejected" ? "View Reason" : "View Details"}
-            </Button>
-          ) : null}
+          <Link
+            to={`/my-bookings/${booking.id}`}
+            className={`inline-flex items-center justify-center gap-2 rounded-full border-2 border-on-background bg-surface text-on-surface font-bold uppercase tracking-wide transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_#1d1b20] active:translate-x-1 active:translate-y-1 active:shadow-none ${
+              cancellable ? "px-3 py-1.5 text-xs" : "flex-1 px-3 py-1.5 text-xs"
+            }`}
+          >
+            {booking.status === "rejected" ? "View Reason" : "View Details"}
+          </Link>
         </div>
       </div>
     </article>
