@@ -42,14 +42,6 @@ STATUS: pending
 
 ## Phase 3 — Authentication
 
-### TASK-008: Student authentication
-OWNER: (none)
-STARTED: (none)
-STATUS: pending
-
-- Login, logout, session persistence, protected routes, authenticated profile, auth error handling.
-- Deps: TASK-003, TASK-005, TASK-006.
-
 ### TASK-009: Role-based route protection
 OWNER: (none)
 STARTED: (none)
