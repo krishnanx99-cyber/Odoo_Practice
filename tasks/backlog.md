@@ -67,12 +67,8 @@ STATUS: in_progress
 ## Phase 5 — Details
 
 ### TASK-013: Event detail
-OWNER: (none)
-STARTED: (none)
-STATUS: pending
-
-- Route, fetch by ID, full event info, register action, registered state, success/error states. Prevent duplicate registration.
-- Deps: TASK-005, TASK-006, TASK-011.
+OWNER: opencode/nishant (claimed — see in-progress.md)
+STATUS: in_progress
 
 ### TASK-014: Resource detail
 OWNER: (none)
