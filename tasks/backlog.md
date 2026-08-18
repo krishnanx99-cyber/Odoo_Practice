@@ -22,14 +22,6 @@ STATUS: pending
 - Supabase project config, frontend client, env vars, typed access pattern. NO service-role key in frontend.
 - Deps: TASK-001.
 
-### TASK-004: Design system integration
-OWNER: (none)
-STARTED: (none)
-STATUS: pending
-
-- Apply `design/DESIGN.md` + `design/design-system.json` + `design/screens/` (Campus Neo-Brutalist): typography, colors, spacing, cards, buttons, inputs, badges, loading/empty states, responsive layout. Do NOT redesign.
-- Deps: TASK-001.
-
 ## Phase 2 — Database
 
 ### TASK-005: Initial Supabase schema
