@@ -1,7 +1,6 @@
 # CI — CampusConnect
 # Runs on every pull request and on pushes to main.
-# Uses the project's actual scripts: lint, typecheck, build.
-# Tests will be added once a test framework exists (TASK backlog).
+# Uses the project's actual scripts: lint, typecheck, test, build.
 
 name: CI
 
@@ -25,5 +24,7 @@ jobs:
         run: npm run lint
       - name: Typecheck
         run: npm run typecheck
+      - name: Test
+        run: npm run test
       - name: Build
         run: npm run build

@@ -19,10 +19,11 @@ Last updated: 2026-08-18
 - **TASK-015 — Booking form (PR #10):** `BookingPage` (`/resources/:resourceId/book`), requestor card, date/time/duration/quantity, live summary, SUBMIT inserts `pending` booking via typed insert (`createBooking`).
 - **TASK-018 — My Bookings (PR #11):** `MyBookingsPage` (`/my-bookings`), Active + History sections, status badges, rejection-reason callout (`fetchMyBookings`).
 - **TASK-019 — Booking actions, frontend portion (PR #12):** Cancel (typed update via RLS `bookings_update_own_cancel`), View Reason, View Details expander. **Edit omitted — backend-blocked** (no RLS/RPC allows changing a pending booking).
+- **TASK-020 — Booking detail/status UX (PR #14):** `BookingDetailPage` (`/my-bookings/:bookingId`), per-status timeline, rejection panel, confirm-cancel banners (`fetchBookingById`); MyBookings View Details/Reason link to it.
+- **TASK-025 — Frontend component tests:** Vitest + React Testing Library + jest-dom + jsdom in `frontend`; `npm run test` (root + frontend); 6 colocated test files (32 tests); CI now includes a Test step. All 32 pass.
 
 ## What is being developed
 
-- **TASK-020 — Booking detail/status UX** is the next claimable frontend task (deps TASK-019, now merged).
 - Backend teammate (opencode/manvar) branches — **NOT merged to `main`**, rebased off main, CI needs to run:
   - `feat/task-005-initial-schema` — schema migrations (`0001_initial_schema.sql`).
   - `feat/task-006-rls` — RLS + harden (`0002_rls_policies.sql`, `0003_harden_function_permissions.sql`).
@@ -34,7 +35,7 @@ Last updated: 2026-08-18
 
 ## What is not started
 
-- Frontend: TASK-009 (admin guard/UX, if needed), TASK-020 (booking detail/status UX), TASK-023/025/026 (admin UI, e2e, polish).
+- Frontend: TASK-009 (admin guard/UX, if needed), TASK-023/026 (admin UI, e2e — e2e blocked on TASK-022 backend), TASK-028/030 (deploy/polish — gated on backend config tasks).
 - Backend (teammate): merge/review of schema/RLS/seed branches, TASK-016/017 RPCs, event-registration RPC (TASK-014 backend half), TASK-021 (admin pending bookings), TASK-022 (admin booking workflow).
 
 ## Live Supabase status (IMPORTANT for coordination)
@@ -75,7 +76,7 @@ Last updated: 2026-08-18
 
 ## Deployment status
 
-- None (TASK-027/028 in backlog). Frontend builds with `npm run build`; CI runs lint + typecheck + build per PR.
+- None (TASK-027/028 in backlog). Frontend builds with `npm run build`; CI runs lint + typecheck + test + build per PR.
 
 ## Technical debt
 

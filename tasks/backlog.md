@@ -147,8 +147,11 @@ STATUS: pending
 - Deps: TASK-006, TASK-017.
 
 ### TASK-025: Frontend component tests
-OWNER: opencode/nishant (claimed — see in-progress.md)
-STATUS: in_progress
+OWNER: opencode/nishant
+STARTED: 2026-08-18 23:30
+STATUS: completed
+
+Completed 2026-08-18 — see completed.md. (Frontend-only.)
 
 ### TASK-026: End-to-end student flow
 OWNER: (none)
