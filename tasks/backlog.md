@@ -99,12 +99,8 @@ STATUS: pending
 ## Phase 7 — My Bookings
 
 ### TASK-018: My Bookings page
-OWNER: (none)
-STARTED: (none)
-STATUS: pending
-
-- Active bookings, history, status badges, loading + empty states.
-- Deps: TASK-017.
+OWNER: opencode/nishant (done — see completed.md)
+STATUS: done
 
 ### TASK-019: Booking actions
 OWNER: (none)
