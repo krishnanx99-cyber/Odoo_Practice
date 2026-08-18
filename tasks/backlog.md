@@ -53,12 +53,8 @@ STATUS: pending
 ## Phase 4 — Home / Discovery
 
 ### TASK-010: Home shell and navigation
-OWNER: (none)
-STARTED: (none)
-STATUS: pending
-
-- Navbar, welcome message, Events/Resources tabs, responsive layout, Home routing.
-- Deps: TASK-002, TASK-004, TASK-008.
+OWNER: opencode/nishant (claimed — see in-progress.md)
+STATUS: in_progress
 
 ### TASK-011: Events discovery
 OWNER: (none)
