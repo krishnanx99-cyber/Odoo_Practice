@@ -37,6 +37,15 @@
   --color-on-error: #ffffff;
   --color-outline: #7a7582;
   --color-outline-variant: #cbc4d2;
+
+  --radius-card: 1.5rem;
+  --radius-input: 1rem;
+  --radius-pill: 9999px;
+
+  --shadow-brutal: 4px 4px 0px 0px #1d1b20;
+  --shadow-brutal-lg: 8px 8px 0px 0px #1d1b20;
+  --shadow-brutal-hover: 12px 12px 0px 0px #1d1b20;
+  --shadow-brutal-input: 6px 6px 0px 0px #1d1b20;
 }
 
 :root {
@@ -48,4 +57,9 @@ body {
   color: var(--color-on-surface);
   font-family: var(--font-body);
   min-height: 100vh;
+}
+
+.border-brutal {
+  border-width: 2px;
+  border-color: var(--color-on-background);
 }
