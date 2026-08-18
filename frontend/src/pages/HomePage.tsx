@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useAuth } from "../lib/AuthContext";
-import { EmptyState, Input, Tab } from "../components/ui";
+import { Input, Tab } from "../components/ui";
 import EventsView from "../components/events/EventsView";
+import ResourcesView from "../components/resources/ResourcesView";
 
 type HomeView = "events" | "resources";
 
@@ -50,10 +51,7 @@ function HomePage() {
         {view === "events" ? (
           <EventsView search={search} />
         ) : (
-          <EmptyState
-            title="No resources found."
-            description="Bookable resources will appear here."
-          />
+          <ResourcesView search={search} />
         )}
       </section>
     </div>

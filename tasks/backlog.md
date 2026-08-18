@@ -61,12 +61,8 @@ OWNER: opencode/nishant (claimed — see in-progress.md)
 STATUS: in_progress
 
 ### TASK-012: Resources discovery
-OWNER: (none)
-STARTED: (none)
-STATUS: pending
-
-- Resource fetching, cards, availability indicator, search, category/availability/capacity/location filters, empty + loading states. Active/bookable only.
-- Deps: TASK-005, TASK-010.
+OWNER: opencode/nishant (claimed — see in-progress.md)
+STATUS: in_progress
 
 ## Phase 5 — Details
 
