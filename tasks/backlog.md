@@ -103,12 +103,8 @@ OWNER: opencode/nishant (done — see completed.md)
 STATUS: done
 
 ### TASK-019: Booking actions
-OWNER: (none)
-STARTED: (none)
-STATUS: pending
-
-- Pending: Edit/Cancel. Approved: View/Cancel. Rejected: View reason. Cancelled/Completed: View.
-- Deps: TASK-018.
+OWNER: opencode/nishant (claimed — see in-progress.md)
+STATUS: in_progress
 
 ### TASK-020: Booking detail/status UX
 OWNER: (none)
