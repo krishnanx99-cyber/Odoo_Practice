@@ -71,8 +71,8 @@ OWNER: opencode/nishant (claimed — see in-progress.md)
 STATUS: in_progress
 
 ### TASK-014: Resource detail
-OWNER: opencode/nishant (claimed — see in-progress.md)
-STATUS: in_progress
+OWNER: opencode/nishant (done — see completed.md)
+STATUS: done
 
 ## Phase 6 — Resource Booking
 
