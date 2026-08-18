@@ -36,7 +36,7 @@ Last updated: 2026-08-18
 
 ## Database status
 
-- Supabase project exists (`project_ref: nmbxorvxyuafxeuyrdlx`). Schema not yet created — TASK-005 (initial schema) + TASK-006 (RLS) in backlog.
+- Supabase project `gmfhoqgskfgmppddtejh` connected and verified 2026-08-18: Auth API up (GoTrue v2.195.0), anon + service-role keys accepted by PostgREST (404 = schema not yet created, expected). `frontend/.env` holds `VITE_SUPABASE_URL` + `VITE_SUPABASE_ANON_KEY` (gitignored). Service-role key kept server-side only — never in frontend/repo. Schema not yet created — TASK-005 (initial schema) + TASK-006 (RLS) in backlog.
 
 ## Deployment status
 
