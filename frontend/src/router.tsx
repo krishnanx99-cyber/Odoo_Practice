@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import AppLayout from "./components/AppLayout";
 import ErrorBoundary from "./components/ErrorBoundary";
 import ProtectedRoute from "./components/ProtectedRoute";
+import BookingDetailPage from "./pages/BookingDetailPage";
 import BookingPage from "./pages/BookingPage";
 import EventDetailPage from "./pages/EventDetailPage";
 import HomePage from "./pages/HomePage";
@@ -26,6 +27,7 @@ export const router = createBrowserRouter([
             element: <BookingPage />,
           },
           { path: "/my-bookings", element: <MyBookingsPage /> },
+          { path: "/my-bookings/:bookingId", element: <BookingDetailPage /> },
         ],
       },
       { path: "/login", element: <LoginPage /> },
