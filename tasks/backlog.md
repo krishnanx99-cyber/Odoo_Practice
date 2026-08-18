@@ -57,12 +57,8 @@ OWNER: opencode/nishant (claimed — see in-progress.md)
 STATUS: in_progress
 
 ### TASK-011: Events discovery
-OWNER: (none)
-STARTED: (none)
-STATUS: pending
-
-- Event fetching, cards, grid, search, category/date/location filters, empty + loading states. Published events only.
-- Deps: TASK-005, TASK-010.
+OWNER: opencode/nishant (claimed — see in-progress.md)
+STATUS: in_progress
 
 ### TASK-012: Resources discovery
 OWNER: (none)
