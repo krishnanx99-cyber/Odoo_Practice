@@ -147,12 +147,11 @@ STATUS: pending
 - Deps: TASK-006, TASK-017.
 
 ### TASK-025: Frontend component tests
-OWNER: (none)
-STARTED: (none)
-STATUS: pending
+OWNER: opencode/nishant
+STARTED: 2026-08-18 23:30
+STATUS: completed
 
-- Cards, filters, forms, status badges, empty/loading states.
-- Deps: TASK-011, TASK-012, TASK-015, TASK-018.
+Completed 2026-08-18 — see completed.md. (Frontend-only.)
 
 ### TASK-026: End-to-end student flow
 OWNER: (none)
