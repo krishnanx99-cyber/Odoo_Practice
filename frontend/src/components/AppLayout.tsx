@@ -1,11 +1,11 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
-import { isAuthenticated, setSessionUser } from "../lib/auth";
+import { useAuth } from "../lib/AuthContext";
 
 function AppLayout() {
-  const authed = isAuthenticated();
+  const { user, signOut } = useAuth();
 
   const handleLogout = () => {
-    setSessionUser(null);
+    void signOut();
   };
 
   return (
@@ -37,14 +37,19 @@ function AppLayout() {
           </NavLink>
         </nav>
         <div className="flex items-center gap-4">
-          {authed ? (
-            <button
-              type="button"
-              onClick={handleLogout}
-              className="rounded-full border-2 border-on-background bg-surface-container-highest px-4 py-2 text-sm font-bold text-on-surface shadow-[4px_4px_0_0_#1d1b20] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_#1d1b20] active:translate-x-1 active:translate-y-1 active:shadow-none"
-            >
-              Logout
-            </button>
+          {user ? (
+            <>
+              <span className="hidden text-sm font-bold text-on-surface-variant sm:block">
+                {user.fullName}
+              </span>
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="rounded-full border-2 border-on-background bg-surface-container-highest px-4 py-2 text-sm font-bold text-on-surface shadow-[4px_4px_0_0_#1d1b20] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_#1d1b20] active:translate-x-1 active:translate-y-1 active:shadow-none"
+              >
+                Logout
+              </button>
+            </>
           ) : (
             <Link
               to="/login"
