@@ -86,3 +86,11 @@ export async function fetchMyBookings(userId: string): Promise<BookingWithResour
   }
   return (data ?? []) as BookingWithResource[];
 }
+
+export async function cancelBooking(bookingId: string): Promise<{ error: string | null }> {
+  const { error } = await supabase
+    .from("bookings")
+    .update({ status: "cancelled", cancelled_at: new Date().toISOString() })
+    .eq("id", bookingId);
+  return { error: error?.message ?? null };
+}

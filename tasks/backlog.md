@@ -103,8 +103,8 @@ OWNER: opencode/nishant (done — see completed.md)
 STATUS: done
 
 ### TASK-019: Booking actions
-OWNER: opencode/nishant (claimed — see in-progress.md)
-STATUS: in_progress
+OWNER: opencode/nishant (done — see completed.md)
+STATUS: done
 
 ### TASK-020: Booking detail/status UX
 OWNER: (none)
