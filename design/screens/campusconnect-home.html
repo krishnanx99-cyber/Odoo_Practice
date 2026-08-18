@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CampusConnect - Home</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config from Guidelines -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#645a7d",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e6e0e9",
+                        "secondary-container": "#e1d4fd",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#765b00",
+                        "surface-dim": "#ded8e0",
+                        "primary": "#4f378a",
+                        "inverse-primary": "#cfbcff",
+                        "surface-variant": "#e6e0e9",
+                        "primary-container": "#6750a4",
+                        "surface-container-high": "#ece6ee",
+                        "surface-container-low": "#f8f2fa",
+                        "inverse-surface": "#322f35",
+                        "tertiary-fixed": "#ffdf93",
+                        "on-secondary-fixed-variant": "#4b4263",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#594400",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#494551",
+                        "on-background": "#1d1b20",
+                        "primary-fixed-dim": "#cfbcff",
+                        "secondary-fixed": "#e9ddff",
+                        "tertiary-fixed-dim": "#e7c365",
+                        "on-primary-container": "#e0d2ff",
+                        "outline-variant": "#cbc4d2",
+                        "surface-bright": "#fdf7ff",
+                        "on-primary-fixed": "#22005d",
+                        "on-tertiary-container": "#503d00",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "surface": "#fdf7ff",
+                        "secondary-fixed-dim": "#cdc0e9",
+                        "on-surface": "#1d1b20",
+                        "surface-container": "#f2ecf4",
+                        "on-primary-fixed-variant": "#4f378a",
+                        "outline": "#7a7582",
+                        "primary-fixed": "#e9ddff",
+                        "on-secondary-fixed": "#1f1635",
+                        "background": "#fdf7ff",
+                        "secondary": "#63597c",
+                        "inverse-on-surface": "#f5eff7",
+                        "surface-tint": "#6750a4",
+                        "on-tertiary-fixed": "#241a00",
+                        "tertiary-container": "#c9a74d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "container-max": "1280px",
+                        "gutter": "24px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Lexend"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Lexend"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-bold": ["Plus Jakarta Sans"],
+                        "headline-xl": ["Lexend"],
+                        "headline-md": ["Lexend"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-bold": ["14px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "headline-xl": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Base neo-brutalist resets and utilities */
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        
+        /* Hard shadow utility mapping to on-background color #1d1b20 */
+        .brutal-shadow {
+            box-shadow: 4px 4px 0px 0px #1d1b20;
+        }
+        .brutal-shadow-lg {
+            box-shadow: 8px 8px 0px 0px #1d1b20;
+        }
+        .brutal-shadow-hover:hover {
+            box-shadow: 12px 12px 0px 0px #1d1b20;
+        }
+        .brutal-shadow-active:active {
+            box-shadow: 0px 0px 0px 0px #1d1b20;
+            transform: translate(4px, 4px);
+        }
+        
+        /* Smooth transitions for interactions */
+        .interaction-transition {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-body-md text-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar (From JSON) -->
+<header class="bg-surface dark:bg-background text-primary dark:text-primary-fixed font-body-md text-body-md docked full-width top-0 border-b-2 border-on-background dark:border-outline-variant shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex justify-between items-center px-margin-desktop h-20 w-full z-50 sticky">
+<!-- Brand -->
+<div class="font-headline-md text-headline-md font-bold text-on-surface dark:text-on-background">
+            CampusConnect
+        </div>
+<!-- Navigation (Desktop) -->
+<nav class="hidden md:flex items-center gap-base">
+<a class="bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 border-2 border-on-background hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none" href="#">
+                Home
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-1 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none rounded-full" href="#">
+                My Bookings
+            </a>
+</nav>
+<!-- Trailing Action -->
+<div class="flex items-center gap-gutter">
+<button class="font-label-bold text-label-bold text-on-surface border-2 border-on-background rounded-full px-4 py-2 brutal-shadow interaction-transition hover:-translate-y-[2px] hover:-translate-x-[2px] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none bg-surface-container-highest">
+                Logout
+            </button>
+<div class="w-10 h-10 rounded-full border-2 border-on-background overflow-hidden brutal-shadow">
+<img alt="Student Profile Avatar" class="w-full h-full object-cover" data-alt="A close up, stylized portrait of a college student serving as a profile avatar. The art style is bold and graphic, featuring thick black outlines, flat vibrant colors adhering to a neo-brutalist aesthetic. The background is a solid, contrasting pastel color." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCo1EvJDWnmy1hHT1z-la889gxry6tJd7SLoBrl3h5B4Q176WKaEc_xplfq8DFhQvBTpM0jZheTIx3fVRZ_i_DMAnuhiDVzQaU2_VM5npE94Ju1qv1ASLMv3AzZQWzLCmlemmcxtGTKQmg-t2FkEN0HXwtXm8h6iGt4R2zuSsj2KvtbaZqXlSc-du8ZjNvuqJZ-bt6Own4uYCmy3ARCvF2OfyJQhnUI7vNYVD2h285yWdJogtjkEyXv8Q"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 gap-12">
+<!-- Editorial Header Section -->
+<section class="flex flex-col gap-4 max-w-3xl">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-xl md:text-headline-xl text-on-background uppercase tracking-tight">
+                WELCOME, NISHANT 👋
+            </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                Find events to join and resources to book around campus. Stay connected and make the most of your university experience.
+            </p>
+</section>
+<!-- Controls: Tab Switcher & Search -->
+<section class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 w-full pb-4 border-b-2 border-on-background">
+<!-- Tactile Tab Switcher -->
+<div class="flex gap-4">
+<!-- Active Tab -->
+<button class="bg-primary text-on-primary border-2 border-on-background rounded-full px-6 py-2 font-label-bold text-label-bold brutal-shadow interaction-transition active:translate-y-[4px] active:translate-x-[4px] active:shadow-none">
+                    EVENTS
+                </button>
+<!-- Inactive Tab -->
+<button class="bg-surface text-on-surface border-2 border-on-background rounded-full px-6 py-2 font-label-bold text-label-bold hover:bg-surface-container interaction-transition hover:-translate-y-1 hover:brutal-shadow active:translate-y-[2px] active:shadow-none">
+                    RESOURCES
+                </button>
+</div>
+<!-- Search Bar -->
+<div class="relative w-full md:w-96">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-3 bg-surface-bright border-2 border-on-background rounded-lg font-body-md text-on-background placeholder-on-surface-variant focus:outline-none focus:ring-0 focus:border-primary brutal-shadow interaction-transition focus:-translate-y-1 focus:shadow-[6px_6px_0px_0px_#1d1b20]" placeholder="Search events, clubs..." type="text"/>
+</div>
+</section>
+<!-- Event Cards Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Card 1: AI Workshop -->
+<article class="bg-surface-container-lowest border-2 border-on-background rounded-xl brutal-shadow-lg interaction-transition brutal-shadow-hover hover:-translate-y-2 hover:-translate-x-1 flex flex-col overflow-hidden group cursor-pointer relative">
+<!-- Decorative wash behind card -->
+<div class="absolute inset-0 bg-tertiary opacity-0 group-hover:opacity-10 transition-opacity z-0 pointer-events-none"></div>
+<div class="h-48 border-b-2 border-on-background relative z-10 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A vibrant, graphic illustration of a modern computer laboratory or AI workspace. The image uses a neo-brutalist style with flat fields of color, thick black outlining, and a composition that feels structured yet dynamic. Bright orange and lavender accents pop against a stark white background. The scene suggests high-tech innovation within an academic setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtmPBhUCdDIFtwYBW4qq4J4x5mHudemGgPSXdsiv3odBqt49bzVhMtBJCDbzW7xAw066WFHGQAv2TS8xa1aXdmutp_tpznyRMKZQ2qbi9JRTGfK-8rKxukQJZPZvqk3-zC3SRKLRIZXDgaf9hPtB2X5I_F6vXNqEIhP6uNuKik5atGLxFaBMVuKbI3USjexELvDXkulQAI3hvO_kCNhotAyQfkK3_t0mmezUh5adAcHkguxsyxCTqL5Q"/>
+</div>
+<div class="p-6 flex flex-col gap-4 flex-grow relative z-10">
+<div class="flex justify-between items-start">
+<span class="bg-tertiary-container text-on-tertiary-container border-2 border-on-background rounded-full px-3 py-1 font-label-bold text-[12px] uppercase tracking-wider">
+                            Technology
+                        </span>
+<div class="flex flex-col items-end">
+<span class="font-headline-md text-headline-md text-on-surface">25</span>
+<span class="font-label-bold text-label-bold text-on-surface-variant uppercase">Aug</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="font-headline-md text-headline-md text-on-background group-hover:text-primary transition-colors line-clamp-2">
+                            AI Workshop
+                        </h3>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-sm mt-2">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span>Main Auditorium</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 2: Global Hackathon -->
+<article class="bg-surface-container-lowest border-2 border-on-background rounded-xl brutal-shadow-lg interaction-transition brutal-shadow-hover hover:-translate-y-2 hover:-translate-x-1 flex flex-col overflow-hidden group cursor-pointer relative">
+<div class="absolute inset-0 bg-secondary opacity-0 group-hover:opacity-10 transition-opacity z-0 pointer-events-none"></div>
+<div class="h-48 border-b-2 border-on-background relative z-10 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A stylized, poster-like depiction of a chaotic but energetic hackathon environment. Features abstract representations of laptops, glowing screens, and interconnected nodes. The aesthetic is neo-brutalist, utilizing heavy black lines, stark contrast, and an intense primary color palette dominant in royal blues and bright whites. The mood is highly competitive and electric." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbnuzKyK9CYlEOLTNCC1JOCGBBDdQYCvn2Bhv77jWCzYjw0fGyr0eHq8cksRP9BqMPVUl2sksLpsq9yTon0PZ-gDCtZi3MZhC7Z8-RjwHdCG5ooo3D6_FKTlZziW8EMHIjbMc28jV3npyRKriWdPLmTqleR-Ne62L_OXU69k9U9WIfNeldZ0wQRGb-Sr_CTJ80QmkYwF4IjAhWvPqWgCn3Hsij_Un1fGjwuTuI97wS-S7RfOW1Fe4ywQ"/>
+</div>
+<div class="p-6 flex flex-col gap-4 flex-grow relative z-10">
+<div class="flex justify-between items-start">
+<span class="bg-primary-container text-on-primary-container border-2 border-on-background rounded-full px-3 py-1 font-label-bold text-[12px] uppercase tracking-wider">
+                            Competition
+                        </span>
+<div class="flex flex-col items-end">
+<span class="font-headline-md text-headline-md text-on-surface">01</span>
+<span class="font-label-bold text-label-bold text-on-surface-variant uppercase">Sept</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="font-headline-md text-headline-md text-on-background group-hover:text-primary transition-colors line-clamp-2">
+                            Global Hackathon
+                        </h3>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-sm mt-2">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span>Innovation Hub</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 3: Graphic Design Mixer (Generated to fill grid) -->
+<article class="bg-surface-container-lowest border-2 border-on-background rounded-xl brutal-shadow-lg interaction-transition brutal-shadow-hover hover:-translate-y-2 hover:-translate-x-1 flex flex-col overflow-hidden group cursor-pointer relative">
+<div class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-10 transition-opacity z-0 pointer-events-none"></div>
+<div class="h-48 border-b-2 border-on-background relative z-10 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A bold, typography-driven poster design representing an art and design networking event. The visual uses large, overlapping serif and sans-serif letters in high contrast black and white, accented by a single streak of vivid pink. The style is strictly neo-brutalist, raw, and editorial, resembling an indie zine cover." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWE9Ls5RDfoBoV6iUSdw37T4EvvPKnFixmFLh9ezBaj7JsKkUJ6XK_lfjduX1aQm1ZlX5opyDqzV75HzYY853M-7Qi3qA2l2KBCE5t2pkMyrOHNwz7Zld5c3-AhDIoKfPS2oBlXFEucWJl7FPDO_zGOVtud_gaF__a1kBkIrLPNqKrWKiBPXkuz9xqbtwbKpYNbBO0GGOYFnoWur66kMwLu9ZGprqY1yL3SSd9qLgeQPLgGW8xvqRR3w"/>
+</div>
+<div class="p-6 flex flex-col gap-4 flex-grow relative z-10">
+<div class="flex justify-between items-start">
+<span class="bg-secondary-container text-on-secondary-container border-2 border-on-background rounded-full px-3 py-1 font-label-bold text-[12px] uppercase tracking-wider">
+                            Networking
+                        </span>
+<div class="flex flex-col items-end">
+<span class="font-headline-md text-headline-md text-on-surface">12</span>
+<span class="font-label-bold text-label-bold text-on-surface-variant uppercase">Sept</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="font-headline-md text-headline-md text-on-background group-hover:text-primary transition-colors line-clamp-2">
+                            Design Mixer
+                        </h3>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-sm mt-2">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span>Student Union Cafe</span>
+</div>
+</div>
+</div>
+</article>
+</section>
+</main>
+<!-- Footer (From JSON) -->
+<footer class="bg-surface-container dark:bg-surface-container-low text-primary dark:text-primary-fixed font-body-md text-body-md docked full-width bottom border-t-2 border-on-background dark:border-outline-variant flex flex-col md:flex-row justify-between items-center py-gutter px-margin-desktop w-full mt-auto">
+<div class="font-headline-md text-headline-md font-bold text-on-surface mb-4 md:mb-0">
+            © 2024 University CampusConnect. All rights reserved.
+        </div>
+<nav class="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2">
+<!-- Footer Links styling applied based on JSON requirements for inactive state as standard -->
+<a class="font-body-md text-on-surface-variant hover:bg-secondary-container dark:hover:bg-on-secondary-container hover:text-on-secondary-container dark:hover:text-secondary-container transition-colors px-2 py-1 rounded" href="#">University Home</a>
+<a class="font-body-md text-on-surface-variant hover:bg-secondary-container dark:hover:bg-on-secondary-container hover:text-on-secondary-container dark:hover:text-secondary-container transition-colors px-2 py-1 rounded" href="#">Student Support</a>
+<a class="font-body-md text-on-surface-variant hover:bg-secondary-container dark:hover:bg-on-secondary-container hover:text-on-secondary-container dark:hover:text-secondary-container transition-colors px-2 py-1 rounded" href="#">Privacy Policy</a>
+<a class="font-body-md text-on-surface-variant hover:bg-secondary-container dark:hover:bg-on-secondary-container hover:text-on-secondary-container dark:hover:text-secondary-container transition-colors px-2 py-1 rounded" href="#">Contact Support</a>
+</nav>
+</footer>
+</body></html>

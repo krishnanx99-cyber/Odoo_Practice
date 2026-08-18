@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CampusConnect - Login</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Custom Animations */
+        @keyframes slideBouncy {
+            0% { transform: translateY(-50px); opacity: 0; }
+            60% { transform: translateY(10px); opacity: 1; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes slideUpFade {
+            0% { transform: translateY(30px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        .animate-brand { animation: slideBouncy 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .animate-card { animation: slideUpFade 0.6s ease-out forwards; opacity: 0; animation-delay: 0.2s; }
+    </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#1d1b20",
+                        "secondary-container": "#e1d4fd",
+                        "on-surface-variant": "#494551",
+                        "on-primary-fixed": "#22005c",
+                        "background": "#fdf7ff",
+                        "surface-variant": "#e6e0e9",
+                        "tertiary-fixed": "#ffdf93",
+                        "outline": "#7a7582",
+                        "error": "#ba1a1a",
+                        "surface": "#fdf7ff",
+                        "surface-container": "#f2ecf4",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#c9a74d",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#4f378a",
+                        "primary": "#381e72",
+                        "secondary": "#63597c",
+                        "inverse-on-surface": "#f5eff7",
+                        "on-secondary-fixed": "#1f1635",
+                        "inverse-primary": "#d0bcff",
+                        "primary-fixed": "#e9ddff",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e6e0e9",
+                        "outline-variant": "#cbc4d2",
+                        "on-surface": "#1d1b20",
+                        "surface-bright": "#fdf7ff",
+                        "on-secondary-fixed-variant": "#4b4263",
+                        "on-tertiary-fixed-variant": "#594400",
+                        "on-tertiary-fixed": "#241a00",
+                        "surface-container-low": "#f8f2fa",
+                        "tertiary-fixed-dim": "#e7c265",
+                        "on-primary-container": "#c0a7ff",
+                        "surface-tint": "#6750a4",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#765b00",
+                        "surface-container-high": "#ece6ee",
+                        "primary-fixed-dim": "#d0bcff",
+                        "primary-container": "#6750a4",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#ded8e0",
+                        "on-secondary-container": "#645a7d",
+                        "on-tertiary-container": "#503d00",
+                        "secondary-fixed": "#e9ddff",
+                        "secondary-fixed-dim": "#cdc0e9",
+                        "inverse-surface": "#322f35"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Lexend"],
+                        "headline-lg": ["Lexend"],
+                        "label-bold": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Lexend"],
+                        "label-xs-caps": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Lexend"],
+                        "body-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "label-bold": ["14px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "label-xs-caps": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col overflow-x-hidden relative">
+<!-- Background Animations -->
+<div class="fixed inset-0 z-[-2] opacity-30 pointer-events-none">
+<!-- STITCH_SHADER_START:ANIMATION_24 class="w-full h-full" -->
+<div class="w-full h-full" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_24" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_24');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+varying vec2 v_texCoord;
+uniform float u_time;
+uniform vec2 u_resolution;
+
+void main() {
+    vec2 uv = v_texCoord;
+    // Subtle moving grain/noise for paper texture
+    float n = fract(sin(dot(uv + u_time * 0.01, vec2(12.9898, 78.233))) * 43758.5453);
+    vec3 baseColor = vec3(0.992, 0.969, 0.941); // #fdf7ff / Creamy
+    vec3 finalColor = baseColor - (n * 0.02);
+    gl_FragColor = vec4(finalColor, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_24 -->
+</div>
+<div class="fixed inset-0 z-[-1] opacity-50 pointer-events-none">
+<!-- STITCH_THREEJS_START:ANIMATION_25 class="w-full h-full" -->
+<div class="w-full h-full" style="display:block;">
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<div id="threejs-container-ANIMATION_25" style="width:100%;height:100%"></div>
+<script>
+(function() {
+  const container = document.getElementById('threejs-container-ANIMATION_25');
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  // Interactive floating decorative objects for CampusConnect login
+const width = container.clientWidth || window.innerWidth;
+const height = container.clientHeight || window.innerHeight;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+renderer.setSize(width, height);
+renderer.setClearColor(0x000000, 0);
+container.appendChild(renderer.domElement);
+
+// Simple geometries to represent campus icons (Books, Tickets, Pins)
+const createObject = (color, x, y, speed) => {
+    const geometry = new THREE.BoxGeometry(0.5, 0.7, 0.1);
+    const material = new THREE.MeshPhongMaterial({ color: color, flatShading: true });
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.position.set(x, y, 0);
+    scene.add(mesh);
+    return { mesh, speed, initialY: y };
+};
+
+const objects = [
+    createObject(0x4f378a, -4, 2, 0.001), // Blue book
+    createObject(0xd97706, 4, -2, 0.0015), // Orange ticket
+    createObject(0x7c3aed, -3, -3, 0.0012), // Lavender pin
+    createObject(0x3b82f6, 3, 3, 0.0008)  // Light blue star
+];
+
+const light = new THREE.DirectionalLight(0xffffff, 1);
+light.position.set(5, 5, 5).normalize();
+scene.add(light);
+scene.add(new THREE.AmbientLight(0x404040));
+
+camera.position.z = 10;
+
+function animate() {
+    requestAnimationFrame(animate);
+    objects.forEach(obj => {
+        obj.mesh.rotation.x += 0.01;
+        obj.mesh.rotation.y += 0.01;
+        obj.mesh.position.y = obj.initialY + Math.sin(Date.now() * obj.speed) * 0.5;
+    });
+    renderer.render(scene, camera);
+}
+
+window.addEventListener('resize', () => {
+    const w = container.clientWidth || window.innerWidth;
+    const h = container.clientHeight || window.innerHeight;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+});
+
+animate();
+})();
+</script>
+</div>
+<!-- STITCH_THREEJS_END:ANIMATION_25 -->
+</div>
+<!-- Main Content Area -->
+<main class="flex-grow flex items-center justify-center p-margin-mobile md:p-margin-desktop z-10 w-full max-w-container-max mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter w-full">
+<!-- Left Side: Branding -->
+<div class="flex flex-col justify-center space-y-8 p-4 md:p-8 animate-brand">
+<div>
+<h1 class="font-headline-xl text-headline-xl text-primary drop-shadow-[4px_4px_0px_#1d1b20]">
+                        WELCOME TO<br/>CAMPUSCONNECT
+                    </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-4 max-w-md font-bold">
+                        Your campus. Your community. Your connection.
+                    </p>
+</div>
+<div class="relative w-full max-w-[500px] border-b-2 border-on-background pb-4">
+<img alt="" class="w-full h-auto object-contain drop-shadow-[8px_8px_0px_#1d1b20] transition-transform hover:-translate-y-2 hover:translate-x-2 duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqum4iRxRmw06VuBHEnW0xeTVqkj3OsTQjeOWT1UnMVsYDPqGM_mocVTxVc_glwCQz3IV1vBDIfInf1wlhKr5N94YpDzjvZ4gZfjvX6E0Q3l7sPEoxnigqBogrrjdGnnS5LiIfcgT8mmEbe4a0fz_EZA53XqkYAWNn5Rk0lClF911r73ReWsyZPVA8-l_2uP9gMavimjbI3eQ4IYFzTg-Z6oilK9cH1IZ9v_WXz7HSZ4QIcMmAstXMwA"/>
+</div>
+</div>
+<!-- Right Side: Auth Card -->
+<div class="flex items-center justify-center animate-card">
+<div class="bg-surface-container-lowest border-2 border-on-background shadow-[8px_8px_0px_0px_#1d1b20] w-full max-w-md overflow-hidden relative group">
+<!-- Hover Tint Overlay -->
+<div class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-[0.03] transition-opacity pointer-events-none"></div>
+<!-- Tabs -->
+<div class="flex border-b-2 border-on-background">
+<button class="flex-1 py-4 font-headline-md text-headline-md text-center border-r-2 border-on-background bg-surface-container-lowest transition-colors" id="tab-login" onclick="switchTab('login')">
+                            LOGIN
+                        </button>
+<button class="flex-1 py-4 font-headline-md text-headline-md text-center bg-surface-variant text-on-surface-variant transition-colors" id="tab-signup" onclick="switchTab('signup')">
+                            SIGN UP
+                        </button>
+</div>
+<div class="p-8">
+<!-- Login Form -->
+<form class="space-y-6" id="form-login">
+<div class="space-y-2">
+<label class="font-label-bold text-label-bold block">Email Address</label>
+<input class="w-full bg-surface-bright border-2 border-on-background p-3 font-body-md text-body-md focus:outline-none focus:border-primary focus:shadow-[4px_4px_0px_0px_#1d1b20] focus:-translate-y-[2px] focus:-translate-x-[2px] transition-all" placeholder="student@university.edu" type="email"/>
+</div>
+<div class="space-y-2 relative">
+<label class="font-label-bold text-label-bold block flex justify-between">
+                                    Password
+                                    <a class="font-label-bold text-label-bold text-primary hover:underline" href="#">Forgot password?</a>
+</label>
+<div class="relative">
+<input class="w-full bg-surface-bright border-2 border-on-background p-3 pr-12 font-body-md text-body-md focus:outline-none focus:border-primary focus:shadow-[4px_4px_0px_0px_#1d1b20] focus:-translate-y-[2px] focus:-translate-x-[2px] transition-all" id="login-password" placeholder="••••••••" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors" onclick="togglePassword('login-password', 'login-eye')" type="button">
+<span class="material-symbols-outlined" id="login-eye">visibility</span>
+</button>
+</div>
+</div>
+<div class="flex items-center">
+<input class="w-5 h-5 border-2 border-on-background text-primary rounded-none focus:ring-0 focus:ring-offset-0 bg-surface-bright" id="remember" type="checkbox"/>
+<label class="ml-2 font-body-md text-body-md cursor-pointer" for="remember">Remember me</label>
+</div>
+<button class="w-full bg-primary text-on-primary border-2 border-on-background shadow-[4px_4px_0px_0px_#1d1b20] py-4 font-headline-md text-headline-md uppercase hover:shadow-[6px_6px_0px_0px_#1d1b20] hover:-translate-y-[2px] hover:-translate-x-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all flex items-center justify-center gap-2" type="button">
+                                LOGIN <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</form>
+<!-- Sign Up Form (Hidden by default) -->
+<form class="space-y-6 hidden" id="form-signup">
+<div class="space-y-2">
+<label class="font-label-bold text-label-bold block">Full Name</label>
+<input class="w-full bg-surface-bright border-2 border-on-background p-3 font-body-md text-body-md focus:outline-none focus:border-primary focus:shadow-[4px_4px_0px_0px_#1d1b20] focus:-translate-y-[2px] focus:-translate-x-[2px] transition-all" placeholder="Jane Doe" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-bold text-label-bold block">Student ID</label>
+<input class="w-full bg-surface-bright border-2 border-on-background p-3 font-body-md text-body-md focus:outline-none focus:border-primary focus:shadow-[4px_4px_0px_0px_#1d1b20] focus:-translate-y-[2px] focus:-translate-x-[2px] transition-all" placeholder="12345678" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-bold text-label-bold block">University Email</label>
+<input class="w-full bg-surface-bright border-2 border-on-background p-3 font-body-md text-body-md focus:outline-none focus:border-primary focus:shadow-[4px_4px_0px_0px_#1d1b20] focus:-translate-y-[2px] focus:-translate-x-[2px] transition-all" placeholder="student@university.edu" type="email"/>
+</div>
+<div class="space-y-2 relative">
+<label class="font-label-bold text-label-bold block">Password</label>
+<div class="relative">
+<input class="w-full bg-surface-bright border-2 border-on-background p-3 pr-12 font-body-md text-body-md focus:outline-none focus:border-primary focus:shadow-[4px_4px_0px_0px_#1d1b20] focus:-translate-y-[2px] focus:-translate-x-[2px] transition-all" id="signup-password" placeholder="••••••••" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors" onclick="togglePassword('signup-password', 'signup-eye')" type="button">
+<span class="material-symbols-outlined" id="signup-eye">visibility</span>
+</button>
+</div>
+</div>
+<button class="w-full bg-tertiary-container text-on-tertiary-container border-2 border-on-background shadow-[4px_4px_0px_0px_#1d1b20] py-4 font-headline-md text-headline-md uppercase hover:shadow-[6px_6px_0px_0px_#1d1b20] hover:-translate-y-[2px] hover:-translate-x-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all flex items-center justify-center gap-2" type="button">
+                                CREATE ACCOUNT <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-on-background w-full py-8 border-t-2 border-on-background mt-auto relative z-10">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop w-full max-w-container-max mx-auto gap-4">
+<div class="font-headline-md text-headline-md text-on-background">
+                CampusConnect
+            </div>
+<div class="flex flex-wrap justify-center gap-4">
+<a class="font-label-xs-caps text-label-xs-caps text-on-surface-variant hover:text-primary transition-colors uppercase" href="#">Privacy Policy</a>
+<a class="font-label-xs-caps text-label-xs-caps text-on-surface-variant hover:text-primary transition-colors uppercase" href="#">Terms of Service</a>
+<a class="font-label-xs-caps text-label-xs-caps text-on-surface-variant hover:text-primary transition-colors uppercase" href="#">Campus Directory</a>
+<a class="font-label-xs-caps text-label-xs-caps text-on-surface-variant hover:text-primary transition-colors uppercase" href="#">Contact Support</a>
+</div>
+<div class="font-body-md text-body-md text-primary dark:text-inverse-primary text-center md:text-right">
+                © 2024 CampusConnect University Portal. All rights reserved.
+            </div>
+</div>
+</footer>
+<!-- Interactive Scripts -->
+<script>
+        function switchTab(tab) {
+            const loginForm = document.getElementById('form-login');
+            const signupForm = document.getElementById('form-signup');
+            const loginTab = document.getElementById('tab-login');
+            const signupTab = document.getElementById('tab-signup');
+
+            if (tab === 'login') {
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+                
+                loginTab.classList.replace('bg-surface-variant', 'bg-surface-container-lowest');
+                loginTab.classList.replace('text-on-surface-variant', 'text-on-background');
+                
+                signupTab.classList.replace('bg-surface-container-lowest', 'bg-surface-variant');
+                signupTab.classList.replace('text-on-background', 'text-on-surface-variant');
+            } else {
+                signupForm.classList.remove('hidden');
+                loginForm.classList.add('hidden');
+                
+                signupTab.classList.replace('bg-surface-variant', 'bg-surface-container-lowest');
+                signupTab.classList.replace('text-on-surface-variant', 'text-on-background');
+                
+                loginTab.classList.replace('bg-surface-container-lowest', 'bg-surface-variant');
+                loginTab.classList.replace('text-on-background', 'text-on-surface-variant');
+            }
+        }
+
+        function togglePassword(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            
+            if (input.type === "password") {
+                input.type = "text";
+                icon.innerText = "visibility_off";
+            } else {
+                input.type = "password";
+                icon.innerText = "visibility";
+            }
+        }
+    </script>
+</body></html>

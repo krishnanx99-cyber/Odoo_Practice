@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Event Details - CodeFusion 2026</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#645a7d",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e6e0e9",
+                        "secondary-container": "#e1d4fd",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#765b00",
+                        "surface-dim": "#ded8e0",
+                        "primary": "#4f378a",
+                        "inverse-primary": "#cfbcff",
+                        "surface-variant": "#e6e0e9",
+                        "primary-container": "#6750a4",
+                        "surface-container-high": "#ece6ee",
+                        "surface-container-low": "#f8f2fa",
+                        "inverse-surface": "#322f35",
+                        "tertiary-fixed": "#ffdf93",
+                        "on-secondary-fixed-variant": "#4b4263",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#594400",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#494551",
+                        "on-background": "#1d1b20",
+                        "primary-fixed-dim": "#cfbcff",
+                        "secondary-fixed": "#e9ddff",
+                        "tertiary-fixed-dim": "#e7c365",
+                        "on-primary-container": "#e0d2ff",
+                        "outline-variant": "#cbc4d2",
+                        "surface-bright": "#fdf7ff",
+                        "on-primary-fixed": "#22005d",
+                        "on-tertiary-container": "#503d00",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "surface": "#fdf7ff",
+                        "secondary-fixed-dim": "#cdc0e9",
+                        "on-surface": "#1d1b20",
+                        "surface-container": "#f2ecf4",
+                        "on-primary-fixed-variant": "#4f378a",
+                        "outline": "#7a7582",
+                        "primary-fixed": "#e9ddff",
+                        "on-secondary-fixed": "#1f1635",
+                        "background": "#fdf7ff",
+                        "secondary": "#63597c",
+                        "inverse-on-surface": "#f5eff7",
+                        "surface-tint": "#6750a4",
+                        "on-tertiary-fixed": "#241a00",
+                        "tertiary-container": "#c9a74d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "container-max": "1280px",
+                        "gutter": "24px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Lexend"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Lexend"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-bold": ["Plus Jakarta Sans"],
+                        "headline-xl": ["Lexend"],
+                        "headline-md": ["Lexend"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-bold": ["14px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "headline-xl": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .neo-brutalist-shadow {
+            box-shadow: 8px 8px 0px 0px rgba(0,0,0,1);
+        }
+        .neo-brutalist-shadow-sm {
+            box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
+        }
+        .neo-brutalist-shadow-hover:hover {
+            box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
+            transform: translate(4px, 4px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-background text-primary dark:text-primary-fixed font-body-md text-body-md docked full-width top-0 border-b-2 border-on-background dark:border-outline-variant shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex justify-between items-center px-margin-desktop h-20 w-full z-50 sticky">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md font-bold text-on-surface dark:text-on-background">CampusConnect</span>
+</div>
+<nav class="hidden md:flex gap-4">
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-1 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none" href="#">Home</a>
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-1 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none" href="#">My Bookings</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none px-4 py-1 border-2 border-transparent">Logout</button>
+<img alt="Student Profile Avatar" class="w-10 h-10 rounded-full border-2 border-on-background object-cover bg-surface-variant" data-alt="Student Profile Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyUUnlpRTXCwdQzQHKvTpKSU2sihMgsi9tjPklZFcuV3we5kaPtVYjcw5POAieuiwtEa11cMLxZjsi8e1NTaMuwlBVMFR7G9qjNWxCmQ8q1GxNGgduWxlvH6dRwQ4OUxGIALwIx8qgibTI5Dk4RNgYhBebd7BDkYuq1NS_G_hU02GxjxKbrFuEBQ9QTczncPcRyGV1aTQhAkFnhPkRfeaC0nq7S_1n8FropGO3-rxYg7zlvT5YKetORw"/>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow p-gutter md:px-margin-desktop md:py-12 max-w-container-max mx-auto w-full">
+<!-- Banner -->
+<div class="w-full h-64 md:h-96 rounded-xl border-2 border-black overflow-hidden relative neo-brutalist-shadow mb-12 bg-secondary-container">
+<img class="w-full h-full object-cover mix-blend-multiply opacity-80" data-alt="A vibrant, high-energy promotional banner for a global hackathon titled CodeFusion 2026. The image features dynamic, abstract geometric patterns in warm oranges, deep purples, and electric blues against a light mode background. The aesthetic is neo-brutalist with thick black outlines and unblurred shadows, evoking a physical tech poster or modern magazine cover. Tech elements like circuit traces and code snippets are subtly integrated into the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvcKUd6srSbqQdk6aV_KlirH3PWVBL2CYxzRUYFSeVt8YiQgObIH9N8rG-gvuTMNVwp4lED3FFcExJoxEyCQrYHgfHfjjDsB0aWEEFANO6nMXfuyeiRAWN1xoUHTTBcNqeEdCkG_lWH2LCeBrlo5WDsJLcNMxtmc-Pyyz1wI7GBtY7IZiCDk1HAGzN6CIKyp2o57vK9HM3N3c8T_n7UUI4nAL52egfgwdWPamuuPiJBRVIR-rvoDK5yw"/>
+<div class="absolute inset-0 p-8 flex flex-col justify-end">
+<span class="bg-tertiary text-on-tertiary px-4 py-1 rounded-full border-2 border-black font-label-bold text-label-bold w-max mb-4">HACKATHON</span>
+<h1 class="font-headline-xl text-headline-xl md:text-headline-xl text-on-background bg-surface px-4 py-2 border-2 border-black inline-block w-max mb-2">CodeFusion 2026</h1>
+<p class="font-headline-md text-headline-md text-on-background bg-surface px-4 py-2 border-2 border-black inline-block w-max">Global Hackathon</p>
+</div>
+</div>
+<!-- Editorial Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Main Content Area -->
+<div class="md:col-span-8 space-y-12">
+<!-- Description -->
+<section>
+<h2 class="font-headline-lg text-headline-lg border-b-4 border-black pb-2 mb-6 inline-block">About the Event</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                        Get ready for the ultimate coding showdown at CodeFusion 2026! Join hundreds of passionate developers, designers, and innovators for a non-stop 48-hour sprint to build the future. Whether you're a seasoned pro or a first-time hacker, this is your chance to collaborate, learn, and showcase your skills on a global stage.
+                    </p>
+</section>
+<!-- Requirements -->
+<section>
+<h2 class="font-headline-lg text-headline-lg border-b-4 border-black pb-2 mb-6 inline-block">Requirements</h2>
+<ul class="space-y-4 font-body-md text-body-md">
+<li class="flex items-start gap-4 p-4 border-2 border-black rounded-lg bg-surface hover:bg-secondary-container hover:text-on-secondary-container transition-colors">
+<span class="material-symbols-outlined mt-1">laptop_mac</span>
+<div>
+<strong class="font-label-bold block mb-1">Bring Your Own Device</strong>
+<span class="text-on-surface-variant">Participants must bring their own laptops and chargers.</span>
+</div>
+</li>
+<li class="flex items-start gap-4 p-4 border-2 border-black rounded-lg bg-surface hover:bg-secondary-container hover:text-on-secondary-container transition-colors">
+<span class="material-symbols-outlined mt-1">group</span>
+<div>
+<strong class="font-label-bold block mb-1">Team Size</strong>
+<span class="text-on-surface-variant">Teams can range from 1 to 4 members. You can form teams on the day of the event.</span>
+</div>
+</li>
+</ul>
+</section>
+</div>
+<!-- Sidebar Details -->
+<div class="md:col-span-4 space-y-8">
+<!-- Registration Card -->
+<div class="bg-surface rounded-2xl border-2 border-black p-6 neo-brutalist-shadow flex flex-col gap-6">
+<button class="w-full bg-[#f97316] text-white font-label-bold text-label-bold py-4 rounded-full border-2 border-black neo-brutalist-shadow-sm neo-brutalist-shadow-hover transition-all text-center tracking-widest uppercase">
+                        REGISTER NOW
+                    </button>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<div class="bg-primary-container text-on-primary-container p-2 border-2 border-black rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">calendar_month</span>
+</div>
+<div>
+<p class="font-label-bold text-label-bold text-on-surface-variant">Date</p>
+<p class="font-body-lg text-body-lg font-bold">Aug 25-27, 2026</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="bg-primary-container text-on-primary-container p-2 border-2 border-black rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">schedule</span>
+</div>
+<div>
+<p class="font-label-bold text-label-bold text-on-surface-variant">Time</p>
+<p class="font-body-lg text-body-lg font-bold">10:00 AM</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="bg-primary-container text-on-primary-container p-2 border-2 border-black rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">location_on</span>
+</div>
+<div>
+<p class="font-label-bold text-label-bold text-on-surface-variant">Location</p>
+<p class="font-body-lg text-body-lg font-bold">Main Tech Auditorium</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="bg-primary-container text-on-primary-container p-2 border-2 border-black rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">group</span>
+</div>
+<div>
+<p class="font-label-bold text-label-bold text-on-surface-variant">Capacity</p>
+<div class="flex items-center gap-2">
+<p class="font-body-lg text-body-lg font-bold">145 / 200</p>
+<div class="w-24 h-2 bg-surface-variant border-2 border-black rounded-full overflow-hidden">
+<div class="bg-[#f97316] h-full" style="width: 72.5%;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 pt-4 border-t-2 border-black">
+<div class="bg-tertiary-container text-on-tertiary-container p-2 border-2 border-black rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">badge</span>
+</div>
+<div>
+<p class="font-label-bold text-label-bold text-on-surface-variant">Organizer</p>
+<p class="font-body-lg text-body-lg font-bold">CS Society</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container dark:bg-surface-container-low text-primary dark:text-primary-fixed font-body-md text-body-md docked full-width bottom border-t-2 border-on-background dark:border-outline-variant flat no shadows flex flex-col md:flex-row justify-between items-center py-gutter px-margin-desktop w-full mt-auto">
+<span class="font-headline-md text-headline-md font-bold text-on-surface mb-4 md:mb-0">CampusConnect</span>
+<div class="flex flex-wrap gap-4 justify-center">
+<a class="font-body-md text-on-surface-variant hover:bg-secondary-container dark:hover:bg-on-secondary-container hover:text-on-secondary-container dark:hover:text-secondary-container transition-colors px-2 py-1 rounded" href="#">University Home</a>
+<a class="font-body-md text-on-surface-variant hover:bg-secondary-container dark:hover:bg-on-secondary-container hover:text-on-secondary-container dark:hover:text-secondary-container transition-colors px-2 py-1 rounded" href="#">Student Support</a>
+<a class="font-body-md text-on-surface-variant hover:bg-secondary-container dark:hover:bg-on-secondary-container hover:text-on-secondary-container dark:hover:text-secondary-container transition-colors px-2 py-1 rounded" href="#">Privacy Policy</a>
+<a class="font-body-md text-on-surface-variant hover:bg-secondary-container dark:hover:bg-on-secondary-container hover:text-on-secondary-container dark:hover:text-secondary-container transition-colors px-2 py-1 rounded" href="#">Contact Support</a>
+</div>
+<span class="mt-4 md:mt-0 text-on-surface-variant text-sm">© 2024 University CampusConnect. All rights reserved.</span>
+</footer>
+</body></html>

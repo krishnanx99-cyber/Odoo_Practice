@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Resource Management - CampusConnect Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&amp;family=Lexend:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#241a00",
+                        "surface-tint": "#6750a4",
+                        "on-tertiary-container": "#503d00",
+                        "background": "#fdf7ff",
+                        "on-surface-variant": "#494551",
+                        "outline-variant": "#cbc4d2",
+                        "on-primary-container": "#e0d2ff",
+                        "secondary-container": "#e1d4fd",
+                        "inverse-primary": "#cfbcff",
+                        "surface-container-high": "#ece6ee",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#e9ddff",
+                        "primary": "#4f378a",
+                        "on-tertiary-fixed-variant": "#594400",
+                        "outline": "#7a7582",
+                        "tertiary": "#765b00",
+                        "surface-container-low": "#f8f2fa",
+                        "on-primary-fixed": "#22005d",
+                        "tertiary-fixed-dim": "#e7c365",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#1f1635",
+                        "tertiary-container": "#c9a74d",
+                        "on-background": "#1d1b20",
+                        "on-surface": "#1d1b20",
+                        "on-secondary-container": "#645a7d",
+                        "primary-fixed-dim": "#cfbcff",
+                        "inverse-surface": "#322f35",
+                        "secondary-fixed": "#e9ddff",
+                        "tertiary-fixed": "#ffdf93",
+                        "surface-container": "#f2ecf4",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#e6e0e9",
+                        "secondary-fixed-dim": "#cdc0e9",
+                        "surface-dim": "#ded8e0",
+                        "inverse-on-surface": "#f5eff7",
+                        "on-primary-fixed-variant": "#4f378a",
+                        "on-secondary-fixed-variant": "#4b4263",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#6750a4",
+                        "secondary": "#63597c",
+                        "surface": "#fdf7ff",
+                        "surface-bright": "#fdf7ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#e6e0e9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "16px",
+                        "base": "8px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Lexend"],
+                        "headline-lg-mobile": ["Lexend"],
+                        "headline-md": ["Lexend"],
+                        "label-bold": ["Plus Jakarta Sans"],
+                        "headline-xl": ["Lexend"],
+                        "body-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "label-bold": ["14px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "headline-xl": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md text-body-md">
+<!-- TopNavBar -->
+<nav class="flex justify-between items-center w-full px-margin-desktop h-20 bg-surface dark:bg-on-background bg-background dark:bg-on-surface-variant w-full border-b-2 border-on-background dark:border-on-surface-variant shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] z-50 relative">
+<div class="font-headline-md text-headline-md font-black text-primary dark:text-primary-fixed tracking-tight">
+            CampusConnect Admin
+        </div>
+<div class="hidden md:flex items-center gap-gutter">
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-body-md text-body-md" href="#">Dashboard</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-body-md text-body-md" href="#">Booking Requests</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-body-md text-body-md" href="#">Events</a>
+<a class="text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed font-bold pb-1 font-body-md text-body-md" href="#">Resources</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-body-md text-body-md" href="#">Users</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-body-md text-body-md" href="#">Analytics</a>
+</div>
+<div class="flex items-center gap-base">
+<button class="p-2 border-2 border-on-background rounded-full hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none duration-100 bg-surface shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-primary">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 border-2 border-on-background rounded-full hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none duration-100 bg-surface shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-primary">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-[1280px] mx-auto px-margin-desktop py-12">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
+<div>
+<h1 class="font-headline-xl text-headline-xl text-on-background mb-2">RESOURCE MANAGEMENT</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Manage campus resources and their availability.</p>
+</div>
+<button class="rounded-full border-2 border-on-background bg-primary text-on-primary px-6 py-3 font-label-bold text-label-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all duration-100 flex items-center gap-2 uppercase tracking-wide">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+                ADD RESOURCE
+            </button>
+</div>
+<!-- Filters & Search Bar (Neo-brutalist Input) -->
+<div class="flex flex-col md:flex-row gap-gutter mb-8">
+<div class="flex-grow relative">
+<label class="block font-label-bold text-label-bold text-on-background uppercase mb-2">Search Resources</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-[#FFF9F2] focus:bg-surface border-2 border-on-background rounded-lg pl-12 pr-4 py-3 font-body-md text-body-md text-on-background focus:outline-none focus:ring-0 focus:border-primary transition-colors" placeholder="Search by name, category, or location..." type="text"/>
+</div>
+</div>
+<div class="w-full md:w-64">
+<label class="block font-label-bold text-label-bold text-on-background uppercase mb-2">Filter by Status</label>
+<select class="w-full bg-[#FFF9F2] focus:bg-surface border-2 border-on-background rounded-lg px-4 py-3 font-body-md text-body-md text-on-background focus:outline-none focus:ring-0 focus:border-primary appearance-none cursor-pointer">
+<option>All Statuses</option>
+<option>AVAILABLE</option>
+<option>UNAVAILABLE</option>
+<option>MAINTENANCE</option>
+<option>ARCHIVED</option>
+</select>
+</div>
+</div>
+<!-- Resource Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Card 1: Available -->
+<div class="bg-surface rounded-xl border-2 border-on-background shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] overflow-hidden flex flex-col group hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all duration-200">
+<div class="relative h-48 border-b-2 border-on-background">
+<img class="w-full h-full object-cover" data-alt="A brightly lit, modern university study room with large glass windows, a large wooden conference table, and ergonomic black office chairs. The room is clean, minimal, and flooded with natural sunlight. Neo-brutalist poster style lighting with high contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDj6ue3TQIhQv6mMKe8B4Gi0Eo-KChO7GseOJFBvy9tBTdFr6yKAyEUjFB5ZXglmnEzaCwa_0qJGg-438EDX104HeUQ5GeXEqzal3VyLRyDUDfxZqFpmE2pgSsq-RdU6xfWbdX-76BZ2oQVDAya-AiLZlR0GQZH7KM3h-9-FH_zULD7gohlVuV0OlIi4WT1zqYFKv0aQgTTqfeCRID2EIgAi38qQtRSBAse-ZcGLxNOqojnSLgvs6UKDQ"/>
+<div class="absolute top-4 left-4 bg-primary text-on-primary border-2 border-on-background rounded-full px-3 py-1 font-label-bold text-label-bold text-xs shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                        STUDY ROOM
+                    </div>
+</div>
+<div class="p-6 flex-grow flex flex-col bg-[#FFF9F2] group-hover:bg-secondary-container transition-colors duration-300">
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-headline-md text-headline-md text-on-background line-clamp-1">Study Room A</h3>
+<span class="inline-flex items-center gap-1 bg-[#e7c365] text-on-tertiary-fixed border-2 border-on-background rounded-full px-2 py-1 text-[10px] font-black uppercase tracking-wider">
+<div class="w-2 h-2 rounded-full bg-green-500 border border-black"></div>
+                            AVAILABLE
+                        </span>
+</div>
+<div class="space-y-2 mb-6">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-[20px]">location_on</span>
+<span>Main Library, 2nd Floor</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-[20px]">groups</span>
+<span>Capacity: 8 Students</span>
+</div>
+</div>
+<div class="mt-auto flex gap-2 border-t-2 border-on-background pt-4">
+<button class="flex-1 border-2 border-on-background rounded-full py-2 font-label-bold text-label-bold bg-surface hover:bg-primary hover:text-on-primary transition-colors text-center shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">Edit</button>
+<button class="flex-1 border-2 border-on-background rounded-full py-2 font-label-bold text-label-bold bg-surface hover:bg-primary hover:text-on-primary transition-colors text-center shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">View</button>
+<button class="w-10 h-10 flex items-center justify-center border-2 border-on-background rounded-full bg-error-container text-on-error-container shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all" title="Archive">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2: Maintenance -->
+<div class="bg-surface rounded-xl border-2 border-on-background shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] overflow-hidden flex flex-col group hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all duration-200">
+<div class="relative h-48 border-b-2 border-on-background">
+<img class="w-full h-full object-cover opacity-70" data-alt="A high-tech university science laboratory with stainless steel benches, microscopes, and glass beakers. The lighting is cool, clinical white with high contrast shadows, giving a slightly industrial, neo-brutalist structural feel to the environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9lI2wj9Rd_3bi-MEJn5K5yX8R1XgHdpUSbLN_rl9QMyiK2iTRA0Al-8Okm5qsQZeS_XSR6QDSmv9HWPS6QEDoI50y9PSSZkpnVhMsaGS6Riys2IZBEoBWTCBlwGACD_iUODJBslUWAenJoxlFif9B3xFOo2JvBccxCo7EwvKlzn7QO93oemx_1YS_DGMvvI4fopHREwmPfybKActu7Mf5FqFEK-SXCJGA9BaG1Sm7p0IpV4Ax-ffWvw"/>
+<div class="absolute inset-0 bg-secondary/10"></div>
+<div class="absolute top-4 left-4 bg-tertiary-container text-on-tertiary-container border-2 border-on-background rounded-full px-3 py-1 font-label-bold text-label-bold text-xs shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                        LABORATORY
+                    </div>
+</div>
+<div class="p-6 flex-grow flex flex-col bg-[#FFF9F2] group-hover:bg-secondary-container transition-colors duration-300">
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-headline-md text-headline-md text-on-background line-clamp-1">Bio Lab 302</h3>
+<span class="inline-flex items-center gap-1 bg-tertiary-fixed text-on-tertiary-fixed border-2 border-on-background rounded-full px-2 py-1 text-[10px] font-black uppercase tracking-wider">
+<div class="w-2 h-2 rounded-full bg-orange-500 border border-black"></div>
+                            MAINTENANCE
+                        </span>
+</div>
+<div class="space-y-2 mb-6">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-[20px]">location_on</span>
+<span>Science Building, 3rd Floor</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-[20px]">groups</span>
+<span>Capacity: 24 Students</span>
+</div>
+</div>
+<div class="mt-auto flex gap-2 border-t-2 border-on-background pt-4">
+<button class="flex-1 border-2 border-on-background rounded-full py-2 font-label-bold text-label-bold bg-surface hover:bg-primary hover:text-on-primary transition-colors text-center shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">Edit</button>
+<button class="flex-1 border-2 border-on-background rounded-full py-2 font-label-bold text-label-bold bg-surface hover:bg-primary hover:text-on-primary transition-colors text-center shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">View</button>
+<button class="w-10 h-10 flex items-center justify-center border-2 border-on-background rounded-full bg-error-container text-on-error-container shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all" title="Archive">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3: Unavailable -->
+<div class="bg-surface rounded-xl border-2 border-on-background shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] overflow-hidden flex flex-col group hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all duration-200">
+<div class="relative h-48 border-b-2 border-on-background">
+<img class="w-full h-full object-cover opacity-80" data-alt="A large empty university auditorium with tiered seating, wooden desks, and a large white projection screen at the front. The lighting is dramatic and moody, casting long, sharp, brutalist shadows across the empty red seats." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLYkuT2poEIcUa1PkBJr6eQX-Vgg83xoJakO2bAE_xzFS4-TL2rzp9YgUPKkUsK34P94iepGlqCwUqgKf8BHmCnWrs6FNrLyxvDTX3GUEeKB3jZXgR3SS7f41znaMh2LD1GEPEjmfSuJnPaH1LDrrMC2jlloAcrSUYxe4lDZw3T_NWzKbGhLGEOaONunaA0wSUB3NxaMzXmyqfTMQskXrgMagqp6Qg590F5lFdyEpYK1g9b2g5pAw1nQ"/>
+<div class="absolute top-4 left-4 bg-primary-container text-on-primary-container border-2 border-on-background rounded-full px-3 py-1 font-label-bold text-label-bold text-xs shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                        AUDITORIUM
+                    </div>
+</div>
+<div class="p-6 flex-grow flex flex-col bg-[#FFF9F2] group-hover:bg-secondary-container transition-colors duration-300">
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-headline-md text-headline-md text-on-background line-clamp-1">Main Hall</h3>
+<span class="inline-flex items-center gap-1 bg-error-container text-on-error-container border-2 border-on-background rounded-full px-2 py-1 text-[10px] font-black uppercase tracking-wider">
+<div class="w-2 h-2 rounded-full bg-red-500 border border-black"></div>
+                            UNAVAILABLE
+                        </span>
+</div>
+<div class="space-y-2 mb-6">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-[20px]">location_on</span>
+<span>Arts Center, Ground Floor</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-[20px]">groups</span>
+<span>Capacity: 500 Students</span>
+</div>
+</div>
+<div class="mt-auto flex gap-2 border-t-2 border-on-background pt-4">
+<button class="flex-1 border-2 border-on-background rounded-full py-2 font-label-bold text-label-bold bg-surface hover:bg-primary hover:text-on-primary transition-colors text-center shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">Edit</button>
+<button class="flex-1 border-2 border-on-background rounded-full py-2 font-label-bold text-label-bold bg-surface hover:bg-primary hover:text-on-primary transition-colors text-center shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">View</button>
+<button class="w-10 h-10 flex items-center justify-center border-2 border-on-background rounded-full bg-error-container text-on-error-container shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all" title="Archive">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 4: Archived -->
+<div class="bg-surface rounded-xl border-2 border-on-background shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] overflow-hidden flex flex-col group hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 grayscale">
+<div class="relative h-48 border-b-2 border-on-background bg-surface-dim">
+<img class="w-full h-full object-cover opacity-40 mix-blend-multiply" data-alt="An older, slightly dusty university seminar room with outdated furniture, stacked chairs in the corner, and a worn chalkboard. The room feels unused and is lit by flat, somewhat dim, institutional lighting. A strong sense of abandonment but structurally intact." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCn6IkhpGZgTHpFhSw6uRRZY7y0ReaW03dC93kSM73Ch0fl_sidtES4wuuR3p5slQyNCFk7EoiYBVMqSUw5UXHiuGT_evbfq1Bz9GOxx98A7PmgqhTiTd-gn6eIKkmA_YFUAq4KgShv1TiGT8jLNhQk7HGZbkf-TYQZkAO4Yw69B0u98OFMGZ_KDPLzNKRIB65YoC7-fs4YTOCkdAGp7-eAVvFQpM9YoSW1easdVowSf0PyDZfSYSFz-A"/>
+<div class="absolute top-4 left-4 bg-outline-variant text-on-surface-variant border-2 border-on-background rounded-full px-3 py-1 font-label-bold text-label-bold text-xs shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                        SEMINAR ROOM
+                    </div>
+</div>
+<div class="p-6 flex-grow flex flex-col bg-surface-container-highest transition-colors duration-300">
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-headline-md text-headline-md text-on-surface-variant line-clamp-1">Old Seminar 12</h3>
+<span class="inline-flex items-center gap-1 bg-surface-variant text-on-surface-variant border-2 border-on-background rounded-full px-2 py-1 text-[10px] font-black uppercase tracking-wider">
+<div class="w-2 h-2 rounded-full bg-gray-500 border border-black"></div>
+                            ARCHIVED
+                        </span>
+</div>
+<div class="space-y-2 mb-6">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-[20px]">location_on</span>
+<span>West Wing, Basement</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-[20px]">groups</span>
+<span>Capacity: 15 Students</span>
+</div>
+</div>
+<div class="mt-auto flex gap-2 border-t-2 border-on-background pt-4">
+<button class="flex-1 border-2 border-on-background rounded-full py-2 font-label-bold text-label-bold bg-surface hover:bg-surface-dim text-on-surface-variant transition-colors text-center shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]" disabled="">Edit</button>
+<button class="flex-1 border-2 border-on-background rounded-full py-2 font-label-bold text-label-bold bg-surface hover:bg-surface-dim text-on-surface-variant transition-colors text-center shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">View</button>
+<button class="w-10 h-10 flex items-center justify-center border-2 border-on-background rounded-full bg-surface-variant text-on-surface-variant shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all" title="Restore">
+<span class="material-symbols-outlined text-[20px]">unarchive</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-on-background w-full border-t-2 border-on-background mt-auto flex flex-col md:flex-row justify-between items-center px-margin-desktop py-gutter flat no shadows">
+<div class="font-headline-md text-headline-md text-on-background dark:text-surface mb-4 md:mb-0">
+            CampusConnect Admin
+        </div>
+<div class="text-on-surface-variant font-label-bold text-label-bold mb-4 md:mb-0">
+            © 2024 CampusConnect Admin. All rights reserved.
+        </div>
+<div class="flex flex-wrap gap-4 font-label-bold text-label-bold">
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-on-background dark:hover:text-surface hover:text-primary transition-colors cursor-pointer" href="#">University Policy</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-on-background dark:hover:text-surface hover:text-primary transition-colors cursor-pointer" href="#">Privacy Settings</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-on-background dark:hover:text-surface hover:text-primary transition-colors cursor-pointer" href="#">System Status</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-on-background dark:hover:text-surface hover:text-primary transition-colors cursor-pointer" href="#">Support</a>
+</div>
+</footer>
+</body></html>

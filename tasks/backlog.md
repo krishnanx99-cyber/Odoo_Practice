@@ -2,93 +2,274 @@
 
 All work not yet started. Move entries to `in-progress.md` when you claim them. Add `OWNER` + `STARTED`. See `tasks/README.md`.
 
-Numbering: next free number after highest existing.
+Task numbering now matches the approved Supabase plan (`docs/CampusConnect_Supabase_Team_Work_Plan.md`, §24-35). The old Express/Prisma backlog (formerly TASK-002..012) was archived 2026-08-18 as superseded by DEC-005.
 
-## Phase 1 — MVP (core booking loop)
+**Before claiming:** read `docs/team-onboarding.md` and the plan. Follow the claim protocol (branch → claim commit → push → implement → PR).
 
-## TASK-002: Local infra — Docker Compose + Prisma init
+## Phase 0 — Project Understanding
+
+### TASK-001: Project audit and implementation baseline
+OWNER: (done — subsumed by scaffold + plan adoption; see completed.md)
+STATUS: completed
+
+## Phase 1 — Foundation
+
+### TASK-002: Frontend architecture
 OWNER: (none)
 STARTED: (none)
 STATUS: pending
 
-- `docker-compose.yml`: PostgreSQL 14+ and Redis.
-- Prisma init in backend; `.env` wiring; `npm run db:migrate` / `db:seed` scripts.
+- React + TS structure, routing, env var structure, reusable layout, error boundary, loading states, route protection structure.
+- Deps: TASK-001.
 
-## TASK-003: Prisma schema + first migration + seeds
+### TASK-003: Supabase client setup
 OWNER: (none)
 STARTED: (none)
 STATUS: pending
 
-- All core tables per `docs/database-schema.md`: users, departments, events, event_registrations, resources, resource_availability, resource_blackout_dates, bookings, locations, notifications, notification_preferences, audit_logs.
-- First migration + seed data (sample users, resources, events).
+- Supabase project config, frontend client, env vars, typed access pattern. NO service-role key in frontend.
+- Deps: TASK-001.
 
-## TASK-004: Auth API
+### TASK-004: Design system integration
 OWNER: (none)
 STARTED: (none)
 STATUS: pending
 
-- Register, login, refresh token, logout, me, change password.
-- JWT + bcrypt, RBAC (student/admin/super_admin), middleware. See `docs/api-contracts.md`.
+- Apply `design/DESIGN.md` + `design/design-system.json` + `design/screens/` (Campus Neo-Brutalist): typography, colors, spacing, cards, buttons, inputs, badges, loading/empty states, responsive layout. Do NOT redesign.
+- Deps: TASK-001.
 
-## TASK-005: Resource CRUD API
+## Phase 2 — Database
+
+### TASK-005: Initial Supabase schema
 OWNER: (none)
 STARTED: (none)
 STATUS: pending
 
-- List/detail (filter, paginate), admin create/edit/delete/archive, availability + blackout management.
-- Validation, error format per contract.
+- Tables: profiles, events, event_registrations, resources, bookings, locations. UUIDs, FKs, timestamps, constraints, indexes, status fields.
+- Deps: TASK-003.
 
-## TASK-006: Booking API + approval workflow
+### TASK-006: RLS and authorization policies
 OWNER: (none)
 STARTED: (none)
 STATUS: pending
 
-- Student request/list/edit/cancel; admin list/approve/reject with reason.
-- Double-booking prevention (decide strategy; record in `docs/decisions.md`).
+- Student + admin policies; test own-booking access, other-user denial, event/resource discovery, registration ownership, admin approve/reject.
+- Deps: TASK-005.
 
-## TASK-007: Notifications (email)
+### TASK-007: Seed/development data
 OWNER: (none)
 STARTED: (none)
 STATUS: pending
 
-- Email on booking approved/rejected; in-app notifications table + unread badge endpoint.
-- SMTP integration behind env config.
+- Profiles, events, resources, locations, bookings, registrations with variation for empty/available/pending/approved/rejected/completed states.
+- Deps: TASK-005.
 
-## TASK-008: Admin dashboard API
+## Phase 3 — Authentication
+
+### TASK-008: Student authentication
 OWNER: (none)
 STARTED: (none)
 STATUS: pending
 
-- Summary stats (bookings by status, resource utilization, event stats, active users).
+- Login, logout, session persistence, protected routes, authenticated profile, auth error handling.
+- Deps: TASK-003, TASK-005, TASK-006.
 
-## TASK-009: Frontend scaffold + auth UI
+### TASK-009: Role-based route protection
 OWNER: (none)
 STARTED: (none)
 STATUS: pending
 
-- Routing, protected routes, login/register pages, token handling, API client (Axios).
+- Student vs admin routes; navigating to admin URL must not grant access.
+- Deps: TASK-006, TASK-008.
 
-## TASK-010: Student resource booking UI
+## Phase 4 — Home / Discovery
+
+### TASK-010: Home shell and navigation
 OWNER: (none)
 STARTED: (none)
 STATUS: pending
 
-- Browse/search/filter resources, availability check, booking request form, my bookings + status.
+- Navbar, welcome message, Events/Resources tabs, responsive layout, Home routing.
+- Deps: TASK-002, TASK-004, TASK-008.
 
-## TASK-011: Admin approval UI
+### TASK-011: Events discovery
 OWNER: (none)
 STARTED: (none)
 STATUS: pending
 
-- Pending bookings queue, approve/reject with reason, booking detail.
+- Event fetching, cards, grid, search, category/date/location filters, empty + loading states. Published events only.
+- Deps: TASK-005, TASK-010.
 
-## TASK-012: Dashboard + notifications UI
+### TASK-012: Resources discovery
 OWNER: (none)
 STARTED: (none)
 STATUS: pending
 
-- Student dashboard (registrations, bookings, reminders), admin dashboard with stats, notification bell + list.
+- Resource fetching, cards, availability indicator, search, category/availability/capacity/location filters, empty + loading states. Active/bookable only.
+- Deps: TASK-005, TASK-010.
 
-## Later phases
+## Phase 5 — Details
 
-Phase 2 (events, calendar, SMS, advanced dashboard), Phase 3 (analytics, reports, bulk ops, export), Phase 4 (security audit, polish, deployment) — add tasks when Phase 1 ships.
+### TASK-013: Event detail
+OWNER: (none)
+STARTED: (none)
+STATUS: pending
+
+- Route, fetch by ID, full event info, register action, registered state, success/error states. Prevent duplicate registration.
+- Deps: TASK-005, TASK-006, TASK-011.
+
+### TASK-014: Resource detail
+OWNER: (none)
+STARTED: (none)
+STATUS: pending
+
+- Route, fetch, full resource info, availability state, booking rules, Book Now action.
+- Deps: TASK-005, TASK-006, TASK-012.
+
+## Phase 6 — Resource Booking
+
+### TASK-015: Booking form
+OWNER: (none)
+STARTED: (none)
+STATUS: pending
+
+- Resource summary, date/start/end time, duration, conditional quantity, reason, special requirements, student info, summary, cancel, submit.
+- Deps: TASK-014, TASK-008.
+
+### TASK-016: Availability validation
+OWNER: (none)
+STARTED: (none)
+STATUS: pending
+
+- Overlap detection, resource status + rule validation, min/max duration, advance notice, quantity availability. UI shows "✓ Available" / "✕ Not available".
+- Deps: TASK-005, TASK-006, TASK-015.
+
+### TASK-017: Secure booking creation
+OWNER: (none)
+STARTED: (none)
+STATUS: pending
+
+- Authenticated ownership, validation, correct pending status, no unauthorized status manipulation, race-condition-safe overlap protection, meaningful errors.
+- Deps: TASK-006, TASK-016.
+
+## Phase 7 — My Bookings
+
+### TASK-018: My Bookings page
+OWNER: (none)
+STARTED: (none)
+STATUS: pending
+
+- Active bookings, history, status badges, loading + empty states.
+- Deps: TASK-017.
+
+### TASK-019: Booking actions
+OWNER: (none)
+STARTED: (none)
+STATUS: pending
+
+- Pending: Edit/Cancel. Approved: View/Cancel. Rejected: View reason. Cancelled/Completed: View.
+- Deps: TASK-018.
+
+### TASK-020: Booking detail/status UX
+OWNER: (none)
+STARTED: (none)
+STATUS: pending
+
+- Rejection reason display, booking summary, status transitions, confirmation + error messages.
+- Deps: TASK-019.
+
+## Phase 8 — Minimal Admin Workflow
+
+### TASK-021: Admin pending bookings
+OWNER: (none)
+STARTED: (none)
+STATUS: pending
+
+- Pending booking list, details, requestor info, resource, date/time, quantity, reason, special requirements.
+- Deps: TASK-006, TASK-017.
+
+### TASK-022: Admin approval/rejection
+OWNER: (none)
+STARTED: (none)
+STATUS: pending
+
+- Approve / Reject + reason. Admins only.
+- Deps: TASK-021.
+
+### TASK-023: Admin resource/event management
+OWNER: (none)
+STARTED: (none)
+STATUS: pending
+
+- Only after core student flow is stable. Create/edit resource + event, publish/cancel.
+- Deps: TASK-022.
+
+## Phase 9 — Testing
+
+### TASK-024: Database/RLS security tests
+OWNER: (none)
+STARTED: (none)
+STATUS: pending
+
+- Student isolation, admin access, unauthorized booking changes, duplicate registration, invalid times, overlaps, inactive resources, draft events.
+- Deps: TASK-006, TASK-017.
+
+### TASK-025: Frontend component tests
+OWNER: (none)
+STARTED: (none)
+STATUS: pending
+
+- Cards, filters, forms, status badges, empty/loading states.
+- Deps: TASK-011, TASK-012, TASK-015, TASK-018.
+
+### TASK-026: End-to-end student flow
+OWNER: (none)
+STARTED: (none)
+STATUS: pending
+
+- Login → Home → Event → Register → Resource → Book → Pending → My Bookings.
+- Deps: TASK-020, TASK-022.
+
+## Phase 10 — Deployment
+
+### TASK-027: Supabase production configuration
+OWNER: (none)
+STARTED: (none)
+STATUS: pending
+
+- Production project, schema/migrations, RLS, storage policies, env vars, seed strategy.
+- Deps: TASK-024.
+
+### TASK-028: Vercel deployment
+OWNER: (none)
+STARTED: (none)
+STATUS: pending
+
+- Deploy frontend; verify env vars, routing, auth redirects, production Supabase connection, mobile responsiveness.
+- Deps: TASK-027.
+
+### TASK-029: Production smoke test
+OWNER: (none)
+STARTED: (none)
+STATUS: pending
+
+- Login, Home, event detail/registration, resource detail/booking, availability, My Bookings, admin approval.
+- Deps: TASK-028.
+
+## Phase 11 — Polish
+
+### TASK-030: UX polish
+OWNER: (none)
+STARTED: (none)
+STATUS: pending
+
+- Loading/empty/error states, success confirmations, responsive + hover/tap, accessibility, form validation, skeletons.
+- Deps: TASK-029.
+
+### TASK-031: Final documentation
+OWNER: (none)
+STARTED: (none)
+STATUS: pending
+
+- Architecture, local setup, Supabase setup, schema, RLS strategy, env vars, deployment, test accounts, limitations, roadmap.
+- Deps: TASK-030.
