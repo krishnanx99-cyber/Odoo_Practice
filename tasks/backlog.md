@@ -107,12 +107,8 @@ OWNER: opencode/nishant (done — see completed.md)
 STATUS: done
 
 ### TASK-020: Booking detail/status UX
-OWNER: (none)
-STARTED: (none)
-STATUS: pending
-
-- Rejection reason display, booking summary, status transitions, confirmation + error messages.
-- Deps: TASK-019.
+OWNER: opencode/nishant (claimed — see in-progress.md)
+STATUS: in_progress
 
 ## Phase 8 — Minimal Admin Workflow
 
