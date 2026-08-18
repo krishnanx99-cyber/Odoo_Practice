@@ -19,6 +19,10 @@ export interface EventWithLocation {
   locations: { name: string } | null;
 }
 
+export interface EventDetail extends EventWithLocation {
+  profiles: { full_name: string } | null;
+}
+
 export type EventDateFilter = "upcoming" | "today" | "week" | "month" | "any";
 
 export interface EventQuery {
@@ -119,4 +123,47 @@ export async function fetchEventFilterOptions(): Promise<EventFilterOptions> {
     categories,
     locations: (locationResult.data ?? []) as { id: string; name: string }[],
   };
+}
+
+export async function fetchEventById(id: string): Promise<EventDetail | null> {
+  const { data, error } = await supabase
+    .from("events")
+    .select("*, locations(name), profiles(full_name)")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  return (data ?? null) as EventDetail | null;
+}
+
+export async function fetchMyRegistration(
+  eventId: string,
+  userId: string,
+): Promise<boolean> {
+  const { data, error } = await supabase
+    .from("event_registrations")
+    .select("id")
+    .eq("event_id", eventId)
+    .eq("user_id", userId)
+    .eq("status", "registered")
+    .maybeSingle();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  return Boolean(data);
+}
+
+export async function registerForEvent(
+  eventId: string,
+  userId: string,
+): Promise<{ error: string | null }> {
+  const { error } = await supabase.from("event_registrations").insert({
+    event_id: eventId,
+    user_id: userId,
+    status: "registered",
+  });
+  return { error: error?.message ?? null };
 }
