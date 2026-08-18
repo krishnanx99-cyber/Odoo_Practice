@@ -1,14 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
-import { EmptyState, ErrorState, StatusBadge } from "../components/ui";
+import { Button, EmptyState, ErrorState, StatusBadge } from "../components/ui";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useAuth } from "../lib/AuthContext";
-import { fetchMyBookings, type BookingWithResource } from "../lib/bookings";
+import { cancelBooking, fetchMyBookings, type BookingWithResource } from "../lib/bookings";
 
 const ACTIVE_STATUSES = new Set(["pending", "approved", "rejected"]);
 
 interface BookingCardProps {
   booking: BookingWithResource;
   history?: boolean;
+  onCancel: (booking: BookingWithResource) => void;
+  cancelling: boolean;
 }
 
 function formatDateRange(start: string, end: string): string {
@@ -48,10 +50,13 @@ function formatDuration(start: string, end: string): string {
   return `${hours} hour${hours > 1 ? "s" : ""}`;
 }
 
-function BookingCard({ booking, history }: BookingCardProps) {
+function BookingCard({ booking, history, onCancel, cancelling }: BookingCardProps) {
   const resource = booking.resources;
   const name = resource?.name ?? "Resource";
   const duration = formatDuration(booking.start_time, booking.end_time);
+  const [confirmingCancel, setConfirmingCancel] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
+  const cancellable = booking.status === "pending" || booking.status === "approved";
 
   return (
     <article
@@ -127,6 +132,89 @@ function BookingCard({ booking, history }: BookingCardProps) {
             </p>
           </div>
         ) : null}
+
+        {showDetails ? (
+          <div className="mt-2 flex flex-col gap-2 rounded-[0.5rem] border-2 border-outline bg-surface-container-low p-3 text-sm">
+            {booking.booking_reason ? (
+              <div className="flex items-start gap-2">
+                <span aria-hidden className="material-symbols-outlined text-lg text-on-surface-variant">
+                  edit_note
+                </span>
+                <p className="text-on-surface">
+                  <span className="font-bold">Reason:</span> {booking.booking_reason}
+                </p>
+              </div>
+            ) : null}
+            {booking.special_requirements ? (
+              <div className="flex items-start gap-2">
+                <span aria-hidden className="material-symbols-outlined text-lg text-on-surface-variant">
+                  build
+                </span>
+                <p className="text-on-surface">
+                  <span className="font-bold">Special requirements:</span>{" "}
+                  {booking.special_requirements}
+                </p>
+              </div>
+            ) : null}
+            <div className="flex items-start gap-2">
+              <span aria-hidden className="material-symbols-outlined text-lg text-on-surface-variant">
+                calendar_month
+              </span>
+              <p className="text-on-surface">
+                <span className="font-bold">Requested:</span>{" "}
+                {new Date(booking.created_at).toLocaleString()}
+              </p>
+            </div>
+          </div>
+        ) : null}
+
+        <div className="mt-auto flex gap-3 pt-6">
+          {cancellable ? (
+            confirmingCancel ? (
+              <div className="flex w-full flex-col gap-2">
+                <p className="text-sm font-bold text-error">Cancel this booking?</p>
+                <div className="flex gap-3">
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    className="flex-1"
+                    disabled={cancelling}
+                    onClick={() => setConfirmingCancel(false)}
+                  >
+                    Keep
+                  </Button>
+                  <Button
+                    size="sm"
+                    className="flex-1"
+                    disabled={cancelling}
+                    onClick={() => onCancel(booking)}
+                  >
+                    {cancelling ? "Cancelling…" : "Yes, cancel"}
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <Button
+                size="sm"
+                variant="secondary"
+                className="flex-1"
+                onClick={() => setConfirmingCancel(true)}
+              >
+                Cancel
+              </Button>
+            )
+          ) : null}
+          {booking.status === "rejected" || booking.status === "completed" || booking.status === "cancelled" ? (
+            <Button
+              size="sm"
+              variant={cancellable ? "ghost" : "secondary"}
+              className={cancellable ? "" : "flex-1"}
+              onClick={() => setShowDetails((prev) => !prev)}
+            >
+              {booking.status === "rejected" ? "View Reason" : "View Details"}
+            </Button>
+          ) : null}
+        </div>
       </div>
     </article>
   );
@@ -136,10 +224,14 @@ function BookingSection({
   title,
   bookings,
   history,
+  onCancel,
+  cancelling,
 }: {
   title: string;
   bookings: BookingWithResource[];
   history?: boolean;
+  onCancel: (booking: BookingWithResource) => void;
+  cancelling: boolean;
 }) {
   return (
     <section>
@@ -154,7 +246,13 @@ function BookingSection({
       ) : (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {bookings.map((booking) => (
-            <BookingCard key={booking.id} booking={booking} history={history} />
+            <BookingCard
+              key={booking.id}
+              booking={booking}
+              history={history}
+              onCancel={onCancel}
+              cancelling={cancelling}
+            />
           ))}
         </div>
       )}
@@ -203,6 +301,25 @@ function MyBookingsPage() {
     return { active, history };
   }, [bookings]);
 
+  const [cancellingId, setCancellingId] = useState<string | null>(null);
+
+  async function handleCancel(booking: BookingWithResource) {
+    if (!user) return;
+    setCancellingId(booking.id);
+    const { error } = await cancelBooking(booking.id);
+    setCancellingId(null);
+    if (error) {
+      setError(error);
+      return;
+    }
+    try {
+      const rows = await fetchMyBookings(user.id);
+      setBookings(rows);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Failed to refresh your bookings.");
+    }
+  }
+
   if (loading) {
     return <LoadingSpinner label="Loading your bookings…" />;
   }
@@ -226,8 +343,19 @@ function MyBookingsPage() {
         />
       ) : (
         <>
-          <BookingSection title="Active Bookings" bookings={active} />
-          <BookingSection title="Booking History" bookings={history} history />
+          <BookingSection
+            title="Active Bookings"
+            bookings={active}
+            onCancel={handleCancel}
+            cancelling={cancellingId !== null}
+          />
+          <BookingSection
+            title="Booking History"
+            bookings={history}
+            history
+            onCancel={handleCancel}
+            cancelling={cancellingId !== null}
+          />
         </>
       )}
     </div>
