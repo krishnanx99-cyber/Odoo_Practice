@@ -77,8 +77,8 @@ STATUS: done
 ## Phase 6 — Resource Booking
 
 ### TASK-015: Booking form
-OWNER: opencode/nishant (claimed — see in-progress.md)
-STATUS: in_progress
+OWNER: opencode/nishant (done — see completed.md)
+STATUS: done
 
 ### TASK-016: Availability validation
 OWNER: (none)
