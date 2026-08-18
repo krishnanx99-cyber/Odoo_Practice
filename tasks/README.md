@@ -29,6 +29,7 @@ Register your unique ID here when you first start work. `<tool>/<handle>` format
 | Agent ID | Tool | Person | Started |
 |---|---|---|---|
 | `opencode/manvar` | opencode | Manvar Pushkar | 2026-08-17 |
+| `opencode/nishant` | opencode | Nishant | 2026-08-18 |
 
 ## Claim protocol
 

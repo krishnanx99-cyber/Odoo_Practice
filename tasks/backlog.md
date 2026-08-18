@@ -14,14 +14,6 @@ STATUS: completed
 
 ## Phase 1 — Foundation
 
-### TASK-002: Frontend architecture
-OWNER: (none)
-STARTED: (none)
-STATUS: pending
-
-- React + TS structure, routing, env var structure, reusable layout, error boundary, loading states, route protection structure.
-- Deps: TASK-001.
-
 ### TASK-003: Supabase client setup
 OWNER: (none)
 STARTED: (none)
