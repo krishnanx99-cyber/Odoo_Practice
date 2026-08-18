@@ -71,12 +71,8 @@ OWNER: opencode/nishant (claimed — see in-progress.md)
 STATUS: in_progress
 
 ### TASK-014: Resource detail
-OWNER: (none)
-STARTED: (none)
-STATUS: pending
-
-- Route, fetch, full resource info, availability state, booking rules, Book Now action.
-- Deps: TASK-005, TASK-006, TASK-012.
+OWNER: opencode/nishant (done — see completed.md)
+STATUS: done
 
 ## Phase 6 — Resource Booking
 

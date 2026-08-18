@@ -101,3 +101,16 @@ export async function fetchResourceFilterOptions(): Promise<ResourceFilterOption
     locations: (locationResult.data ?? []) as { id: string; name: string }[],
   };
 }
+
+export async function fetchResourceById(id: string): Promise<ResourceWithLocation | null> {
+  const { data, error } = await supabase
+    .from("resources")
+    .select("*, locations(name)")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  return (data ?? null) as ResourceWithLocation | null;
+}
