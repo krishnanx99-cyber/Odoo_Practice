@@ -12,7 +12,7 @@ import MyBookingsPage from "./pages/MyBookingsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ResourceDetailPage from "./pages/ResourceDetailPage";
 
-export const router = createBrowserRouter([
+export const routes = [
   {
     element: <AppLayout />,
     errorElement: <ErrorBoundary />,
@@ -36,4 +36,6 @@ export const router = createBrowserRouter([
       { path: "*", element: <NotFoundPage /> },
     ],
   },
-]);
+];
+
+export const router = createBrowserRouter(routes);
