@@ -40,3 +40,19 @@ export async function fetchAllBookings(): Promise<AdminBooking[]> {
   }
   return (data ?? []) as AdminBooking[];
 }
+
+export async function approveBooking(bookingId: string): Promise<{ error: string | null }> {
+  const { error } = await supabase.rpc("approve_booking", { p_booking_id: bookingId });
+  return { error: error?.message ?? null };
+}
+
+export async function rejectBooking(
+  bookingId: string,
+  reason: string,
+): Promise<{ error: string | null }> {
+  const { error } = await supabase.rpc("reject_booking", {
+    p_booking_id: bookingId,
+    p_rejection_reason: reason,
+  });
+  return { error: error?.message ?? null };
+}
