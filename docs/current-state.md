@@ -7,13 +7,12 @@ Last updated: 2026-08-19
 Merging order matters because DB migrations depend on earlier ones. Merge the
 following backend PRs into `main` IN THIS ORDER (squash-merge via GitHub UI):
 
-1. `feat/task-005-initial-schema` (migrations 0001–0003)
-2. `feat/task-006-rls` (migration 0004)
-3. `feat/task-007-seed-data` (seed users/events/resources/bookings + identities fix)
-4. `feat/task-016-availability-validation` (migration 0005)
-5. `feat/task-017-secure-booking` (migration 0006)
-6. `feat/task-022-admin-booking-workflow` (migration 0007)
-7. `feat/task-014-event-registration` (migration 0008)
+1. `feat/task-005-initial-schema` (migration 0001)
+2. `feat/task-006-rls` (migrations 0002–0003)
+3. `feat/task-007-seed-data` (migration 0004; seed data + GoTrue identities fix)
+4. `feat/task-016-availability-validation` (migrations 0005–0006; `check_availability` + `create_booking` RPCs)
+5. `feat/task-022-admin-booking-workflow` (migration 0007; approve/reject RPCs)
+6. `feat/task-014-event-registration` (migration 0008; register/cancel RPCs)
 
 Backend branches listed in this file as "not merged / CI needs to run" are now
 rebased onto latest `main`, conflict-free, and verified live. See **Backend DB
