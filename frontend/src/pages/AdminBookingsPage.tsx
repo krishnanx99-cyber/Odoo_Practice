@@ -1,9 +1,21 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { EmptyState, ErrorState, Input, Select, StatusBadge } from "../components/ui";
+import {
+  Button,
+  EmptyState,
+  ErrorState,
+  Input,
+  Select,
+  StatusBadge,
+} from "../components/ui";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useAuth } from "../lib/AuthContext";
-import { fetchAllBookings, type AdminBooking } from "../lib/admin";
+import {
+  approveBooking,
+  fetchAllBookings,
+  rejectBooking,
+  type AdminBooking,
+} from "../lib/admin";
 
 function formatDateRange(start: string, end: string): string {
   const startDate = new Date(start);
@@ -43,7 +55,7 @@ function DetailRow({ booking }: { booking: AdminBooking }) {
   const resource = booking.resources;
   return (
     <tr className="border-b-2 border-on-background bg-surface-container-low">
-      <td colSpan={8} className="px-6 py-5">
+      <td colSpan={9} className="px-6 py-5">
         <div className="flex flex-col gap-4">
           <div className="flex flex-wrap gap-6">
             <div>
@@ -125,6 +137,63 @@ function AdminBookingsPage() {
   const [resource, setResource] = useState("");
   const [date, setDate] = useState("");
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [actionId, setActionId] = useState<string | null>(null);
+  const [notice, setNotice] = useState<{ tone: "success" | "error"; message: string } | null>(null);
+  const [rejectTarget, setRejectTarget] = useState<AdminBooking | null>(null);
+  const [rejectReason, setRejectReason] = useState("");
+
+  async function reload() {
+    if (!user) return;
+    try {
+      const rows = await fetchAllBookings();
+      setBookings(rows);
+    } catch (err: unknown) {
+      setNotice({
+        tone: "error",
+        message: err instanceof Error ? err.message : "Failed to refresh booking requests.",
+      });
+    }
+  }
+
+  async function handleApprove(booking: AdminBooking) {
+    setActionId(booking.id);
+    setNotice(null);
+    const { error } = await approveBooking(booking.id);
+    setActionId(null);
+    if (error) {
+      setNotice({ tone: "error", message: `Could not approve: ${error}` });
+      return;
+    }
+    setNotice({ tone: "success", message: "Booking approved." });
+    await reload();
+  }
+
+  function openReject(booking: AdminBooking) {
+    setRejectTarget(booking);
+    setRejectReason("");
+    setNotice(null);
+  }
+
+  async function submitReject() {
+    if (!rejectTarget) return;
+    const reason = rejectReason.trim();
+    if (!reason) {
+      setNotice({ tone: "error", message: "A rejection reason is required." });
+      return;
+    }
+    const id = rejectTarget.id;
+    setActionId(id);
+    setNotice(null);
+    const { error } = await rejectBooking(id, reason);
+    setActionId(null);
+    setRejectTarget(null);
+    if (error) {
+      setNotice({ tone: "error", message: `Could not reject: ${error}` });
+      return;
+    }
+    setNotice({ tone: "success", message: "Booking rejected." });
+    await reload();
+  }
 
   useEffect(() => {
     if (!user) return;
@@ -202,6 +271,30 @@ function AdminBookingsPage() {
         <p className="mt-2 text-on-surface-variant">Review and manage resource booking requests.</p>
       </header>
 
+      {notice ? (
+        <div
+          role="status"
+          className={`flex items-center gap-3 rounded-[0.5rem] border-2 border-on-background px-4 py-3 font-bold ${
+            notice.tone === "success"
+              ? "bg-secondary-container text-on-secondary-container"
+              : "bg-error-container text-on-error-container"
+          }`}
+        >
+          <span aria-hidden className="material-symbols-outlined">
+            {notice.tone === "success" ? "check_circle" : "error"}
+          </span>
+          <span>{notice.message}</span>
+          <button
+            type="button"
+            aria-label="Dismiss"
+            onClick={() => setNotice(null)}
+            className="ml-auto rounded-full px-2 py-1 text-sm hover:bg-on-background/10"
+          >
+            ✕
+          </button>
+        </div>
+      ) : null}
+
       <section className="flex flex-col gap-6 rounded-[1rem] border-2 border-on-background bg-surface-container-lowest p-6 shadow-[8px_8px_0_0_#1d1b20]">
         <div className="flex flex-wrap items-center gap-4">
           <div className="min-w-[200px] flex-grow">
@@ -277,6 +370,9 @@ function AdminBookingsPage() {
                   <th className="border-r-2 border-on-background px-4 py-4 font-bold uppercase tracking-wider text-xs">
                     Status
                   </th>
+                  <th className="border-r-2 border-on-background px-4 py-4 font-bold uppercase tracking-wider text-xs">
+                    Actions
+                  </th>
                   <th className="px-4 py-4 text-right font-bold uppercase tracking-wider text-xs">
                     Details
                   </th>
@@ -290,7 +386,10 @@ function AdminBookingsPage() {
                       key={booking.id}
                       booking={booking}
                       isOpen={isOpen}
+                      busy={actionId !== null}
                       onToggle={() => setExpanded(isOpen ? null : booking.id)}
+                      onApprove={() => void handleApprove(booking)}
+                      onReject={() => openReject(booking)}
                     />
                   );
                 })}
@@ -299,6 +398,45 @@ function AdminBookingsPage() {
           </div>
         )}
       </section>
+
+      {rejectTarget ? (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Reject booking"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-on-background/60 p-4"
+        >
+          <div className="w-full max-w-md rounded-[1rem] border-2 border-on-background bg-surface p-6 shadow-[8px_8px_0_0_#1d1b20]">
+            <h2 className="font-headline text-xl font-bold text-on-background">
+              Reject Booking Request
+            </h2>
+            <p className="mt-1 text-sm text-on-surface-variant">
+              {rejectTarget.resources?.name ?? "Resource"} •{" "}
+              {rejectTarget.profiles?.full_name ?? "Unknown"} •{" "}
+              {formatDateRange(rejectTarget.start_time, rejectTarget.end_time)}
+            </p>
+            <div className="mt-4">
+              <Input
+                id="reject-reason"
+                label="Reason (required)"
+                placeholder="Why is this booking being rejected?"
+                value={rejectReason}
+                onChange={(e) => setRejectReason(e.target.value)}
+                maxLength={500}
+                autoFocus
+              />
+            </div>
+            <div className="mt-6 flex justify-end gap-3">
+              <Button variant="secondary" disabled={actionId !== null} onClick={() => setRejectTarget(null)}>
+                Cancel
+              </Button>
+              <Button disabled={actionId !== null} onClick={() => void submitReject()}>
+                {actionId !== null ? "Rejecting…" : "Reject Booking"}
+              </Button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -306,13 +444,20 @@ function AdminBookingsPage() {
 function BookingRow({
   booking,
   isOpen,
+  busy,
   onToggle,
+  onApprove,
+  onReject,
 }: {
   booking: AdminBooking;
   isOpen: boolean;
+  busy: boolean;
   onToggle: () => void;
+  onApprove: () => void;
+  onReject: () => void;
 }) {
   const resource = booking.resources;
+  const isPending = booking.status === "pending";
   return (
     <>
       <tr className="group border-b-2 border-on-background transition-colors hover:bg-secondary-container">
@@ -333,6 +478,20 @@ function BookingRow({
         </td>
         <td className="border-r-2 border-on-background px-4 py-4">
           <StatusBadge status={booking.status} />
+        </td>
+        <td className="border-r-2 border-on-background px-4 py-4">
+          {isPending ? (
+            <div className="flex gap-2">
+              <Button size="sm" disabled={busy} onClick={onApprove}>
+                Approve
+              </Button>
+              <Button size="sm" variant="secondary" disabled={busy} onClick={onReject}>
+                Reject
+              </Button>
+            </div>
+          ) : (
+            <span className="text-sm text-on-surface-variant">—</span>
+          )}
         </td>
         <td className="px-4 py-4 text-right">
           <button
