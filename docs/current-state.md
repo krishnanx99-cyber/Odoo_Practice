@@ -40,34 +40,30 @@ layer (pending merge)** below.
 
 ## What is being developed
 
-- Backend teammate (opencode/manvar) branches — **NOT merged to `main`**, rebased off main, CI needs to run:
-  - `feat/task-005-initial-schema` — schema migrations (`0001_initial_schema.sql`).
-  - `feat/task-006-rls` — RLS + harden (`0002_rls_policies.sql`, `0003_harden_function_permissions.sql`).
-  - `feat/task-007-seed-data` — seed data (`0004_seed_data.sql`).
-  - `feat/task-016-availability-validation` — TASK-016 RPC `check_availability` (`0005_booking_availability.sql`) + **TASK-017 `create_booking` RPC** (`0006_secure_booking_creation.sql`). Branch commits also touch `docs/` and `frontend/src/lib/supabase.ts` (no functional change).
-  - `feat/task-014-event-registration` — TASK-014 (backend half) event registration RPCs; **claim-only**, no RPC file yet.
-  - `feat/task-022-admin-booking-workflow` — admin booking workflow.
-- **Naming collision flagged:** teammate's `feat/task-014-event-registration` uses "TASK-014" for event-registration backend; the plan's TASK-014 (Resource detail) is a separate frontend task and is already merged (PR #9).
+- **Nothing currently.** Backend merged. Frontend admin/e2e/deploy tasks in backlog (see "What is not started").
 
 ## What is not started
 
-- Frontend: TASK-009 (admin guard/UX, if needed), TASK-023/026 (admin UI, e2e — e2e blocked on TASK-022 backend), TASK-028/030 (deploy/polish — gated on backend config tasks).
-- Backend (teammate): merge/review of schema/RLS/seed branches, TASK-016/017 RPCs, event-registration RPC (TASK-014 backend half), TASK-021 (admin pending bookings), TASK-022 (admin booking workflow).
+- Frontend: TASK-009 (admin guard/UX, if needed), TASK-021 (admin pending bookings), TASK-023/026 (admin UI, e2e — e2e was blocked on TASK-022 backend, now merged/live), TASK-028/030 (deploy/polish — gated on backend config tasks), TASK-027/029/031 (prod config, smoke test, final docs).
+- Optional backend follow-up: `update_booking` RPC for pending-booking edits (unblocks frontend TASK-019 Edit).
 
 ## Live Supabase status (IMPORTANT for coordination)
 
 - Project: `https://gmfhoqgskfgmppddtejh.supabase.co` (anon key in `frontend/.env`, gitignored).
-- **Schema + RLS + seed data are ALREADY applied to the live project** (from the TASK-005/006/007 branches). Live API probes confirm: reads are authenticated-only (anon gets 42501 — intended); `bookings` RLS `bookings_insert`/`bookings_update_own_cancel`/`bookings_select` are active.
-- **RPCs NOT deployed yet:** `check_availability`, `create_booking`, `cancel_booking` all return NOT FOUND on the live project. The teammate must apply `0005_booking_availability.sql` + `0006_secure_booking_creation.sql` (and any new migrations) to the live project, then frontend can switch from typed inserts to RPCs.
-- **Test accounts:** `student1/student2/admin@test.com` / `Password123!`.
+- **All migrations 0001–0008 are applied to the live project AND merged to `main`** (PRs #16–#22). Schema, RLS, seed, `check_availability`/`create_booking`, `approve_booking`/`reject_booking`, `register_for_event`/`cancel_registration` all live.
+- **Verified live by real client:** booking flow (availability/create/approve/reject + overlap/advance-notice/min-duration/inactive/anon rejection), event registration flow (register/duplicate/cancel/count sync), and full RLS security suite (22/22 scenarios). GoTrue v2.195 auth fix applied live + in 0004 seed (seed users need `auth.identities` + empty strings in non-nullable token columns).
+- **Test accounts:** `admin@test.com` (admin), `student1/2/3@test.com` / `Password123!` — all verified.
+- Live DB baseline after tests: 4 users, 5 locations, 6 events, 8 bookings, 1 Hackathon registration.
 
-## Cross-track handoff notes for backend teammate
+## Cross-track handoff notes for frontend teammate
 
-- **TASK-015 submit** currently uses a direct typed insert (RLS `bookings_insert`). Once `create_booking` RPC (0006) is deployed, frontend should switch to `supabase.rpc("create_booking", …)` for overlap validation + race-safe creation. This is a small follow-up frontend PR.
-- **TASK-019 Edit** is blocked until a backend `update_booking` RPC (or new RLS policy) exists that permits changing a pending booking's dates/quantity. No such thing exists anywhere yet.
-- **Cancel** works now via RLS `bookings_update_own_cancel` (typed update). If the backend adds a `cancel_booking` RPC later (e.g., for advance-notice validation), frontend will switch to it.
-- No `cancel_booking` RPC exists in any branch. No `update_booking` RPC exists in any branch.
-- Event registration (TASK-013 frontend) uses a typed insert into `event_registrations`; teammate's event-registration RPCs will harden capacity/published checks (TASK-014 backend half).
+- **RPCs are live + merged:** `check_availability`, `create_booking`, `approve_booking`, `reject_booking`, `register_for_event`, `cancel_registration`. Frontend follow-up PRs now possible:
+  - TASK-015 submit → switch to `supabase.rpc("create_booking", …)` (overlap/advance-notice/min-duration validation + race-safe creation).
+  - TASK-013 register → switch to `supabase.rpc("register_for_event", …)` (published/capacity checks + `registered_count` sync).
+  - Admin UI (TASK-021/023) can be built — admin lists all bookings via RLS `bookings_admin_all` and approves/rejects via RPC.
+- **TASK-019 Edit** still blocked — no `update_booking` RPC/RLS exists. Optional backend follow-up.
+- **Cancel** works via RLS `bookings_update_own_cancel` (typed update); no `cancel_booking` RPC exists.
+- **Note:** GoTrue-created users get `profiles.role='student'` (`handle_new_user` ignores `app_metadata.role`); `prevent_role_escalation` blocks API role promotion. Admin role must be set in SQL or by an admin profile update.
 
 ## Known bugs
 
