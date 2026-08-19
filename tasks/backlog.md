@@ -152,12 +152,11 @@ STATUS: completed
 Completed 2026-08-18 — see completed.md. (Frontend-only.)
 
 ### TASK-026: End-to-end student flow
-OWNER: (none)
-STARTED: (none)
-STATUS: pending
+OWNER: opencode/nishant
+STARTED: 2026-08-20
+STATUS: claimed
 
-- Login → Home → Event → Register → Resource → Book → Pending → My Bookings.
-- Deps: TASK-020, TASK-022.
+Claimed — see in-progress.md. (Frontend-only.)
 
 ## Phase 10 — Deployment
 
