@@ -15,12 +15,14 @@
 // end. It fails the process (exit 1) if any scenario does not behave as expected.
 //
 // Verification (against live project gmfhoqgskfgmppddtejh, 2026-08-19):
-//   22/22 scenarios passed, run twice back-to-back, zero DB residue after each run.
+//   28/28 scenarios passed, run twice back-to-back, zero DB residue after each run.
 //   Scenarios: anon denied (table read + RPC), student isolation (see/fetch/update
 //   other student's booking), non-admin approve denied, draft/cancelled/past event
 //   rejection, register/duplicate/cancel lifecycle, inactive resource, end-before-start,
-//   overlapping approved booking, admin sees all + approve + reject, capacity fill +
-//   block, registered_count sync. All RLS policies verified correct; no DB defects found.
+//   overlapping approved booking, admin sees all + approve + reject, editable pending
+//   booking (own edit, partial update, edit others denied, non-pending not editable,
+//   overlap rejected, anon denied), capacity fill + block, registered_count sync.
+//   All RLS policies verified correct; no DB defects found.
 
 const URL = process.env.SUPABASE_URL || 'https://gmfhoqgskfgmppddtejh.supabase.co';
 const ANON = process.env.SUPABASE_ANON_KEY;
@@ -99,7 +101,7 @@ async function main() {
   const resInactive = uid();
   const loc = uid();
   const b1 = uid();
-  let b2, b3, cu1, cu2;
+  let b2, b3, cu1, cu2, bEdit;
   let r;
 
   // ---------- setup (service key) ----------
@@ -224,7 +226,31 @@ async function main() {
   r = await rpc(ta, 'reject_booking', { p_booking_id: b3, p_rejection_reason: 'security test rejection' });
   check('admin rejects booking', r.status === 200 && r.data && r.data.status === 'rejected', `status=${r.status} ${r.data && JSON.stringify(r.data)}`);
 
-  // 19 capacity
+  // 21-26 editable pending bookings (update_booking, migration 0009)
+  const start3 = new Date(now + 10 * 3600 * 1000).toISOString();
+  const end3 = new Date(now + 12 * 3600 * 1000).toISOString();
+  bEdit = uid();
+  await req('/rest/v1/bookings', { method: 'POST', headers: service(), body: { id: bEdit, resource_id: resActive, user_id: cu1.id, start_time: start3, end_time: end3, quantity: 1, status: 'pending', booking_reason: 'security test edit' } });
+
+  r = await rpc(t1, 'update_booking', { p_booking_id: bEdit, p_start_time: start3, p_end_time: end3, p_quantity: 1, p_booking_reason: 'edited reason' });
+  check('owner edits own pending booking', r.status === 200 && r.data && r.data.status === 'pending' && r.data.booking_reason === 'edited reason', `status=${r.status} ${r.data && JSON.stringify(r.data)}`);
+
+  r = await rpc(t1, 'update_booking', { p_booking_id: bEdit, p_booking_reason: 'partial update' });
+  check('partial update keeps times', r.status === 200 && r.data && r.data.booking_reason === 'partial update' && new Date(r.data.start_time).getTime() === new Date(start3).getTime(), `status=${r.status}`);
+
+  r = await rpc(t1, 'update_booking', { p_booking_id: b1, p_booking_reason: 'hijack' });
+  check('owner cannot edit someone else booking', r.status >= 400 && /own bookings/i.test(r.data && r.data.message), `status=${r.status} ${r.data && r.data.message}`);
+
+  r = await rpc(t1, 'update_booking', { p_booking_id: b2, p_booking_reason: 'no' });
+  check('non-pending booking not editable', r.status >= 400 && /pending/i.test(r.data && r.data.message), `status=${r.status} ${r.data && r.data.message}`);
+
+  r = await rpc(t1, 'update_booking', { p_booking_id: bEdit, p_start_time: start2, p_end_time: end2, p_quantity: 1 });
+  check('edit overlapping approved rejected', r.status >= 400 && /quantity available/i.test(r.data && r.data.message), `status=${r.status} ${r.data && r.data.message}`);
+
+  r = await rpcAnon('update_booking', { p_booking_id: bEdit, p_booking_reason: 'anon' });
+  check('anon denied update_booking RPC', [401, 403].includes(r.status), `status=${r.status}`);
+
+  // 27 capacity
   r = await rpc(t1, 'register_for_event', { p_event_id: evFull });
   check('student1 fills capacity', r.status === 200 && r.data && r.data.status === 'registered', `status=${r.status} ${r.data && JSON.stringify(r.data)}`);
   r = await rpc(t2, 'register_for_event', { p_event_id: evFull });
@@ -241,7 +267,7 @@ async function main() {
   } finally {
     // ---------- cleanup (service key); always runs even if a scenario throws ----------
     await req(`/rest/v1/events?id=in.(${evPub},${evDraft},${evCancelled},${evPast},${evFull})`, { method: 'DELETE', headers: service() });
-    await req(`/rest/v1/bookings?id=in.(${b1},${b2},${b3})`, { method: 'DELETE', headers: service() });
+    await req(`/rest/v1/bookings?id=in.(${b1},${b2},${b3},${bEdit})`, { method: 'DELETE', headers: service() });
     await req(`/rest/v1/resources?id=in.(${resActive},${resInactive})`, { method: 'DELETE', headers: service() });
     await req(`/rest/v1/locations?id=eq.${loc}`, { method: 'DELETE', headers: service() });
     if (cu1 && cu1.id) await deleteUser(cu1.id);
