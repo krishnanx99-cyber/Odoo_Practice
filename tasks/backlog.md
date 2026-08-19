@@ -154,9 +154,9 @@ Completed 2026-08-18 — see completed.md. (Frontend-only.)
 ### TASK-026: End-to-end student flow
 OWNER: opencode/nishant
 STARTED: 2026-08-20
-STATUS: claimed
+STATUS: completed
 
-Claimed — see in-progress.md. (Frontend-only.)
+Completed 2026-08-20 — see completed.md. (Frontend-only.)
 
 ## Phase 10 — Deployment
 
