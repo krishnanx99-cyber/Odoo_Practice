@@ -1,6 +1,22 @@
 # Current State — CampusConnect
 
-Last updated: 2026-08-18
+Last updated: 2026-08-19
+
+## Merge order (applies to main)
+
+Merging order matters because DB migrations depend on earlier ones. Merge the
+following backend PRs into `main` IN THIS ORDER (squash-merge via GitHub UI):
+
+1. `feat/task-005-initial-schema` (migration 0001)
+2. `feat/task-006-rls` (migrations 0002–0003)
+3. `feat/task-007-seed-data` (migration 0004; seed data + GoTrue identities fix)
+4. `feat/task-016-availability-validation` (migrations 0005–0006; `check_availability` + `create_booking` RPCs)
+5. `feat/task-022-admin-booking-workflow` (migration 0007; approve/reject RPCs)
+6. `feat/task-014-event-registration` (migration 0008; register/cancel RPCs)
+
+Backend branches listed in this file as "not merged / CI needs to run" are now
+rebased onto latest `main`, conflict-free, and verified live. See **Backend DB
+layer (pending merge)** below.
 
 ## What is completed (merged to `main`)
 
@@ -55,7 +71,7 @@ Last updated: 2026-08-18
 
 ## Known bugs
 
-- None reported. Note: `events.registered_count` will not auto-increment on registration (no trigger/RPC); RLS blocks students from updating events. Backend teammate's event-registration RPC is expected to handle the count.
+- None reported. `events.registered_count` is maintained by `register_for_event` / `cancel_registration` RPCs (migration 0008, TASK-014 backend half).
 
 ## Known limitations / decisions to respect
 
@@ -72,7 +88,11 @@ Last updated: 2026-08-18
 
 ## Database status
 
-- Schema/RLS/seed applied to the live Supabase project from TASK-005/006/007 branches; those branches are NOT yet merged to `main`. Migrations on branches: 0001 (schema), 0002 (RLS), 0003 (harden), 0004 (seed), 0005 (availability RPC), 0006 (create_booking RPC).
+- Migrations 0001–0008 are **applied and verified live** on `gmfhoqgskfgmppddtejh`; the branches carrying them (005/006/007/016/017/022/014-event-registration) are rebased onto latest `main` and pending merge IN ORDER (see top of file).
+- **Auth fixed (GoTrue v2.195):** seed users created via direct SQL lacked `auth.identities` rows and had NULL in `confirmation_token`/`recovery_token`/`email_change`/`email_change_token_new` (scanned as non-nullable) → sign-in returned 500 "Database error querying schema". Backfilled identities + set token columns to `''` live and in `0004_seed_data.sql`. All 4 seed logins verified (pw `Password123!`): `admin@test.com`, `student1/2/3@test.com`.
+- **Event registration verified via real client (TASK-014 backend half):** `register_for_event`/`cancel_registration` (0008) — register, duplicate denied, capacity, cancelled/draft/past denied, cancel, re-register after cancel; `registered_count` synced. Fixed plpgsql bug where the capacity `SELECT count(*)` clobbered `FOUND` so the insert branch never ran.
+- **Booking flow verified via real client (TASK-016/017/022):** `check_availability`, `create_booking` (inactive/min-duration/advance-notice/anon denied), `approve_booking` (admin-only; availability re-checked at approval — overlapping pending booking refused), `reject_booking`. Test bookings cleaned; counts back to seed baseline.
+- Frontend handoff items are now addressed: `create_booking` RPC (0006) exists for the TASK-015 follow-up; event registration RPCs (0008) harden the TASK-013 typed insert. No `cancel_booking`/`update_booking` RPC exists (frontend cancel works via RLS `bookings_update_own_cancel`; Edit remains backend-blocked).
 
 ## Deployment status
 
