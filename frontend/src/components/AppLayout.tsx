@@ -35,6 +35,18 @@ function AppLayout() {
           >
             My Bookings
           </NavLink>
+          {user?.role === "admin" ? (
+            <NavLink
+              to="/admin/bookings"
+              className={({ isActive }) =>
+                `rounded-full px-4 py-1 text-sm font-bold text-on-surface-variant transition-all hover:text-on-surface hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_0_#1d1b20] active:translate-x-1 active:translate-y-1 active:shadow-none ${
+                  isActive ? "bg-secondary-container text-on-secondary-container" : ""
+                }`
+              }
+            >
+              Admin
+            </NavLink>
+          ) : null}
         </nav>
         <div className="flex items-center gap-4">
           {user ? (
