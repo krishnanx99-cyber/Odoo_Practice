@@ -147,6 +147,12 @@ vi.mock("./lib/bookings", () => ({
   cancelBooking: vi.fn().mockResolvedValue({ error: null }),
 }));
 
+vi.mock("./lib/admin", () => ({
+  fetchAllBookings: vi.fn().mockResolvedValue([]),
+  approveBooking: vi.fn().mockResolvedValue({ error: null }),
+  rejectBooking: vi.fn().mockResolvedValue({ error: null }),
+}));
+
 function renderFlow() {
   const router = createMemoryRouter(routes, {
     initialEntries: ["/login"],
