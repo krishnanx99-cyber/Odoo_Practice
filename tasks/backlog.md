@@ -113,12 +113,11 @@ STATUS: done
 ## Phase 8 — Minimal Admin Workflow
 
 ### TASK-021: Admin pending bookings
-OWNER: (none)
-STARTED: (none)
-STATUS: pending
+OWNER: opencode/nishant
+STARTED: 2026-08-19
+STATUS: completed
 
-- Pending booking list, details, requestor info, resource, date/time, quantity, reason, special requirements.
-- Deps: TASK-006, TASK-017.
+Completed 2026-08-19 — see completed.md. (Frontend-only.)
 
 ### TASK-022: Admin approval/rejection
 OWNER: (none)
