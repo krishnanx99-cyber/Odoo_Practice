@@ -35,13 +35,13 @@ merge.
 
 ## What is being developed
 
-- **Nothing currently.** Backend fully merged. Remaining work is deploy/polish/docs (TASK-027/028/029/030/031) and optional follow-ups.
+- **Nothing currently.** Backend fully merged. Remaining work is deploy/polish/docs (TASK-028/029/030/031).
 
 ## What is not started
 
-- Frontend/infra: TASK-027 (Supabase production config), TASK-028 (Vercel deploy), TASK-029 (production smoke test), TASK-030 (UX polish), TASK-031 (final docs). Deps: 028←027, 029←028, 030←029, 031←030.
+- Frontend/infra: TASK-028 (Vercel deploy), TASK-029 (production smoke test), TASK-030 (UX polish), TASK-031 (final docs). Deps: 029←028, 030←029, 031←030.
 - Optional: TASK-009 (admin guard/UX, likely already covered by role=admin checks).
-- Backend: all DB/RPC work done (0001–0009 merged + live). Optional follow-up: none required.
+- Backend: all DB/RPC work done (0001–0009 merged + live). TASK-027 prod-config DONE — see `docs/production-config.md` (advisor run on gmfhoq pending MCP reconnect; see doc §6).
 
 ## Live Supabase status (IMPORTANT for coordination)
 
