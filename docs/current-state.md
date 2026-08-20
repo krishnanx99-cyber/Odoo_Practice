@@ -4,10 +4,11 @@ Last updated: 2026-08-20
 
 ## Merge status (applies to main)
 
-All backend migrations 0001–0008 are merged to `main` and applied live. The
+All backend migrations 0001–0009 are merged to `main` and applied live. The
 backend PRs were squash-merged in dependency order (005 → 006 → 007 → 016/017 →
-022 → 014-event-registration → 024 security suite). No branches are pending
-merge.
+022 → 014-event-registration → 024 security suite → 019 update_booking). No
+branches are pending merge. Frontend tasks are complete through TASK-026/023;
+TASK-027 (prod config) and TASK-031 (final docs) are also merged.
 
 ## What is completed (merged to `main`)
 
@@ -33,16 +34,18 @@ merge.
 - **TASK-026 — End-to-end student flow test (PR #27):** `frontend/src/App.flow.test.tsx` walks Login → Home → Event → Register → Resource → Book → Pending → My Bookings through the real route tree (`createMemoryRouter(routes)`), with the lib layer mocked and mutable auth state. `router.tsx` exports `routes` shared by app + test routers.
 - **TASK-023 — Admin resource/event management (PR #28):** `AdminResourcesPage` (`/admin/resources`) + `AdminEventsPage` (`/admin/events`): create/edit modal forms, search, Activate/Deactivate (resources), Publish/Cancel (events), inline location creator, status badges; shared `AdminNav` (Bookings/Resources/Events) on all admin pages. `lib/admin.ts`: `fetchAllResources`, `createResource`, `updateResource`, `fetchAllEvents` (locations+profiles joins), `createEvent`, `updateEvent`, `fetchAllLocations`, `createLocation`. Admin-only guard + redirect; routes in `router.tsx`. 47 tests pass.
 - **TASK-030 — UX polish (PR #30):** Skeleton loading states replacing spinners (Events/Resources/My Bookings/admin pages via new `components/ui/Skeleton.tsx`); accessibility (`:focus-visible` outline, `prefers-reduced-motion`, skip-to-content link, nav aria-labels); responsive mobile nav menu in AppLayout (hamburger → Home/My Bookings/Admin + Login/Logout); admin dialogs close on Escape + backdrop click; My Bookings cancel success banner. 55 tests pass.
+- **TASK-027 — Supabase production configuration (PR #29):** `docs/production-config.md` — live project info, migration matrix, security posture (RLS + function hardening, verified by 28/28 live suite), auth config verified via `/auth/v1/settings`, dashboard-only settings checklist (SMTP, site URL, rate limits, PITR, key rotation, seed gating), env-var strategy, MCP tooling warning (supabase vs supabase-prod targets). Advisor run on gmfhoq pending MCP reconnect (doc §6).
+- **TASK-031 — Final documentation:** README.md finalized (features, quick start, test accounts, docs index, deployment, workflow); `docs/database-schema.md` refreshed PLANNED → IMPLEMENTED (0001–0009, RLS, RPC table); new `docs/limitations.md` + `docs/roadmap.md`; `docs/current-state.md` final status.
 
 ## What is being developed
 
-- **Nothing currently.** Backend fully merged. Remaining work is deploy/docs (TASK-028/029/031).
+- **Nothing currently.** Backend fully merged. Remaining work is deploy/smoke (TASK-028 Vercel deploy → TASK-029 production smoke).
 
 ## What is not started
 
-- Frontend/infra: TASK-028 (Vercel deploy), TASK-029 (production smoke test), TASK-031 (final docs). Deps: 029←028, 031←030.
+- Frontend/infra: TASK-028 (Vercel deploy), TASK-029 (production smoke test). Deps: 029←028.
 - Optional: TASK-009 (admin guard/UX, likely already covered by role=admin checks).
-- Backend: all DB/RPC work done (0001–0009 merged + live). TASK-027 prod-config DONE — see `docs/production-config.md` (advisor run on gmfhoq pending MCP reconnect; see doc §6).
+- Backend: all DB/RPC work done (0001–0009 merged + live). Prod-config doc done (TASK-027); final docs done (TASK-031).
 
 ## Live Supabase status (IMPORTANT for coordination)
 
@@ -85,11 +88,12 @@ merge.
 - **Auth fixed (GoTrue v2.195):** seed users created via direct SQL lacked `auth.identities` rows and had NULL in `confirmation_token`/`recovery_token`/`email_change`/`email_change_token_new` (scanned as non-nullable) → sign-in returned 500 "Database error querying schema". Backfilled identities + set token columns to `''` live and in `0004_seed_data.sql`. All 4 seed logins verified (pw `Password123!`): `admin@test.com`, `student1/2/3@test.com`.
 - **Event registration verified via real client (TASK-014 backend half):** `register_for_event`/`cancel_registration` (0008) — register, duplicate denied, capacity, cancelled/draft/past denied, cancel, re-register after cancel; `registered_count` synced. Fixed plpgsql bug where the capacity `SELECT count(*)` clobbered `FOUND` so the insert branch never ran.
 - **Booking flow verified via real client (TASK-016/017/022):** `check_availability`, `create_booking` (inactive/min-duration/advance-notice/anon denied), `approve_booking` (admin-only; availability re-checked at approval — overlapping pending booking refused), `reject_booking`. Test bookings cleaned; counts back to seed baseline.
-- Frontend handoff items are now addressed: `create_booking` RPC (0006) exists for the TASK-015 follow-up; event registration RPCs (0008) harden the TASK-013 typed insert. No `cancel_booking`/`update_booking` RPC exists (frontend cancel works via RLS `bookings_update_own_cancel`; Edit remains backend-blocked).
+- **Update-own-pending-booking verified via real client (TASK-019, 0009):** `update_booking` — own edit, partial update, others/non-pending/overlap denied, anon denied; security suite extended to 28 scenarios. Zero DB residue after run.
+- Frontend handoff items are now addressed: `create_booking` RPC (0006) exists for the TASK-015 follow-up; event registration RPCs (0008) harden the TASK-013 typed insert; `update_booking` RPC (0009) unblocks TASK-019 Edit. No `cancel_booking` RPC exists (frontend cancel works via RLS `bookings_update_own_cancel`).
 
 ## Deployment status
 
-- None (TASK-027/028 in backlog). Frontend builds with `npm run build`; CI runs lint + typecheck + test + build per PR.
+- Frontend deploy pending — TASK-028 (Vercel) with the frontend teammate; add `VITE_SUPABASE_URL` + `VITE_SUPABASE_ANON_KEY` env vars and the Vercel site URL to the Supabase Auth redirect allowlist (`docs/production-config.md` §4). Frontend builds with `npm run build`; CI runs lint + typecheck + test + build per PR.
 
 ## Technical debt
 
