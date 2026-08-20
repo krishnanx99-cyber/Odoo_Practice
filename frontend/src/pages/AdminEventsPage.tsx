@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, EmptyState, ErrorState, Input, Select } from "../components/ui";
-import LoadingSpinner from "../components/LoadingSpinner";
+import { SkeletonCardGrid } from "../components/ui/Skeleton";
 import AdminNav from "../components/admin/AdminNav";
 import { useAuth } from "../lib/AuthContext";
 import {
@@ -78,7 +78,10 @@ function EventForm({
   }
 
   return (
-    <div className="flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-[1rem] border-2 border-on-background bg-surface shadow-[8px_8px_0_0_#1d1b20]">
+    <div
+      className="flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-[1rem] border-2 border-on-background bg-surface shadow-[8px_8px_0_0_#1d1b20]"
+      onClick={(event) => event.stopPropagation()}
+    >
       <div className="border-b-2 border-on-background bg-surface-variant px-6 py-4">
         <h2 className="font-headline text-xl font-bold text-on-background">{submitLabel}</h2>
       </div>
@@ -297,6 +300,22 @@ function AdminEventsPage() {
     await load();
   }
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setEditing(null);
+        setCreating(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  function closeModal() {
+    setEditing(null);
+    setCreating(false);
+  }
+
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
     if (!q) return events;
@@ -309,7 +328,7 @@ function AdminEventsPage() {
   }, [events, search]);
 
   if (loading) {
-    return <LoadingSpinner label="Loading events…" />;
+    return <SkeletonCardGrid label="Loading events…" />;
   }
 
   if (error) {
@@ -460,6 +479,7 @@ function AdminEventsPage() {
           aria-modal="true"
           aria-label={editing ? "Edit event" : "Create event"}
           className="fixed inset-0 z-50 flex items-center justify-center bg-on-background/60 p-4"
+          onClick={closeModal}
         >
           <EventForm
             initial={formInitial}
@@ -467,7 +487,7 @@ function AdminEventsPage() {
             saving={saving}
             submitLabel={editing ? "Save Changes" : "Create Event"}
             onSubmit={(input) => void handleSave(input)}
-            onCancel={() => { setCreating(false); setEditing(null); }}
+            onCancel={closeModal}
           />
         </div>
       ) : null}

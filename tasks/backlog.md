@@ -188,9 +188,9 @@ STATUS: pending
 ### TASK-030: UX polish
 OWNER: opencode/nishant
 STARTED: 2026-08-20
-STATUS: claimed
+STATUS: completed
 
-Claimed — see in-progress.md. (Frontend-only.)
+Completed 2026-08-20 — see completed.md. (Frontend-only.)
 
 ### TASK-031: Final documentation
 OWNER: (none)

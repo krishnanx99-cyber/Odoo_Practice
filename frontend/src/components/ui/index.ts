@@ -5,5 +5,6 @@ export { default as EmptyState } from "./EmptyState";
 export { default as ErrorState } from "./ErrorState";
 export { default as Input } from "./Input";
 export { default as Select } from "./Select";
+export { Skeleton, SkeletonCardGrid, SkeletonList, SkeletonRow } from "./Skeleton";
 export { default as StatusBadge } from "./StatusBadge";
 export { default as Tab } from "./Tab";

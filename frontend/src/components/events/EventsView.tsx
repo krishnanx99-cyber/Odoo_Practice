@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { EmptyState, ErrorState, Select } from "../ui";
-import LoadingSpinner from "../LoadingSpinner";
+import { EmptyState, ErrorState, Select, SkeletonCardGrid } from "../ui";
 import EventCard from "./EventCard";
 import {
   fetchEventFilterOptions,
@@ -110,7 +109,7 @@ function EventsView({ search }: EventsViewProps) {
       </div>
 
       {loading ? (
-        <LoadingSpinner label="Loading events…" />
+        <SkeletonCardGrid aria-label="Loading events" />
       ) : error ? (
         <ErrorState message={error} onRetry={() => setReloadKey((key) => key + 1)} />
       ) : events.length === 0 ? (

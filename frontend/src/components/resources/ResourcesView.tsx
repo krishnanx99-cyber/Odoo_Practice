@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { EmptyState, ErrorState, Select } from "../ui";
-import LoadingSpinner from "../LoadingSpinner";
+import { EmptyState, ErrorState, Select, SkeletonCardGrid } from "../ui";
 import ResourceCard from "./ResourceCard";
 import {
   fetchResourceFilterOptions,
@@ -138,7 +137,7 @@ function ResourcesView({ search }: ResourcesViewProps) {
       </div>
 
       {loading ? (
-        <LoadingSpinner label="Loading resources…" />
+        <SkeletonCardGrid aria-label="Loading resources" />
       ) : error ? (
         <ErrorState message={error} onRetry={() => setReloadKey((key) => key + 1)} />
       ) : resources.length === 0 ? (
