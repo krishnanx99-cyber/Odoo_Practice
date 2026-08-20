@@ -44,24 +44,24 @@ layer (pending merge)** below.
 
 ## What is not started
 
-- Frontend: TASK-009 (admin guard/UX, if needed), TASK-021 (admin pending bookings), TASK-023/026 (admin UI, e2e — e2e was blocked on TASK-022 backend, now merged/live), TASK-028/030 (deploy/polish — gated on backend config tasks), TASK-027/029/031 (prod config, smoke test, final docs).
-- Optional backend follow-up: `update_booking` RPC for pending-booking edits (unblocks frontend TASK-019 Edit).
+- Frontend: TASK-009 (admin guard/UX, if needed), TASK-022 (admin approve/reject UI — friend's, in progress), TASK-023/026 (admin resource mgmt, e2e), TASK-028/030 (deploy/polish — gated on backend config tasks), TASK-027/029/031 (prod config, smoke test, final docs).
+- Backend: all DB/RPC work done (0001–0009 live + merged/PR-ready).
 
 ## Live Supabase status (IMPORTANT for coordination)
 
 - Project: `https://gmfhoqgskfgmppddtejh.supabase.co` (anon key in `frontend/.env`, gitignored).
-- **All migrations 0001–0008 are applied to the live project AND merged to `main`** (PRs #16–#22). Schema, RLS, seed, `check_availability`/`create_booking`, `approve_booking`/`reject_booking`, `register_for_event`/`cancel_registration` all live.
-- **Verified live by real client:** booking flow (availability/create/approve/reject + overlap/advance-notice/min-duration/inactive/anon rejection), event registration flow (register/duplicate/cancel/count sync), and full RLS security suite (22/22 scenarios). GoTrue v2.195 auth fix applied live + in 0004 seed (seed users need `auth.identities` + empty strings in non-nullable token columns).
+- **All migrations 0001–0009 are applied to the live project; 0001–0008 merged to `main`** (PRs #16–#22), `0009` (update_booking) PR-ready. Schema, RLS, seed, `check_availability`/`create_booking`, `approve_booking`/`reject_booking`, `register_for_event`/`cancel_registration`, `update_booking` all live.
+- **Verified live by real client:** booking flow (availability/create/approve/reject + overlap/advance-notice/min-duration/inactive/anon rejection), editable pending bookings (own edit, partial update, others/non-pending/overlap denied, anon denied), event registration flow (register/duplicate/cancel/count sync), and full RLS security suite (28/28 scenarios). GoTrue v2.195 auth fix applied live + in 0004 seed (seed users need `auth.identities` + empty strings in non-nullable token columns).
 - **Test accounts:** `admin@test.com` (admin), `student1/2/3@test.com` / `Password123!` — all verified.
 - Live DB baseline after tests: 4 users, 5 locations, 6 events, 8 bookings, 1 Hackathon registration.
 
 ## Cross-track handoff notes for frontend teammate
 
-- **RPCs are live + merged:** `check_availability`, `create_booking`, `approve_booking`, `reject_booking`, `register_for_event`, `cancel_registration`. Frontend follow-up PRs now possible:
+- **RPCs are live (0001–0009):** `check_availability`, `create_booking`, `approve_booking`, `reject_booking`, `register_for_event`, `cancel_registration`, `update_booking`. Frontend follow-up PRs now possible:
   - TASK-015 submit → switch to `supabase.rpc("create_booking", …)` (overlap/advance-notice/min-duration validation + race-safe creation).
   - TASK-013 register → switch to `supabase.rpc("register_for_event", …)` (published/capacity checks + `registered_count` sync).
-  - Admin UI (TASK-021/023) can be built — admin lists all bookings via RLS `bookings_admin_all` and approves/rejects via RPC.
-- **TASK-019 Edit** still blocked — no `update_booking` RPC/RLS exists. Optional backend follow-up.
+  - Admin UI (TASK-021 done; TASK-022 in progress) — admin lists all bookings via RLS `bookings_admin_all` and approves/rejects via RPC.
+  - **TASK-019 Edit** → unblocked: `update_booking` RPC (migration 0009) edits own pending bookings with full re-validation (partial updates OK). Frontend: call `supabase.rpc("update_booking", …)` for the Edit form.
 - **Cancel** works via RLS `bookings_update_own_cancel` (typed update); no `cancel_booking` RPC exists.
 - **Note:** GoTrue-created users get `profiles.role='student'` (`handle_new_user` ignores `app_metadata.role`); `prevent_role_escalation` blocks API role promotion. Admin role must be set in SQL or by an admin profile update.
 
