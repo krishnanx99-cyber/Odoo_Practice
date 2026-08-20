@@ -193,9 +193,9 @@ STATUS: completed
 Completed 2026-08-20 — see completed.md. (Frontend-only.)
 
 ### TASK-031: Final documentation
-OWNER: (none)
-STARTED: (none)
-STATUS: pending
+OWNER: opencode/manvar
+STARTED: 2026-08-20
+STATUS: completed (done 2026-08-20 — see `tasks/completed.md`)
 
 - Architecture, local setup, Supabase setup, schema, RLS strategy, env vars, deployment, test accounts, limitations, roadmap.
 - Deps: TASK-030.
