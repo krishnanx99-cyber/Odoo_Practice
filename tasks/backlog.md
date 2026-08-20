@@ -120,12 +120,11 @@ STATUS: completed
 Completed 2026-08-19 — see completed.md. (Frontend-only.)
 
 ### TASK-022: Admin approval/rejection
-OWNER: (none)
-STARTED: (none)
-STATUS: pending
+OWNER: opencode/nishant
+STARTED: 2026-08-19
+STATUS: completed
 
-- Approve / Reject + reason. Admins only.
-- Deps: TASK-021.
+Completed 2026-08-19 — see completed.md. (Frontend-only.)
 
 ### TASK-023: Admin resource/event management
 OWNER: (none)

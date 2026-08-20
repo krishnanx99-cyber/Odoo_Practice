@@ -325,9 +325,112 @@ export interface Database {
     };
     Views: Record<string, never>;
     Functions: {
+      approve_booking: {
+        Args: { p_booking_id: string };
+        Returns: {
+          id: string;
+          resource_id: string;
+          user_id: string;
+          start_time: string;
+          end_time: string;
+          quantity: number;
+          status: "pending" | "approved" | "rejected" | "cancelled" | "completed";
+          booking_reason: string | null;
+          special_requirements: string | null;
+          approved_by: string | null;
+          approved_at: string | null;
+          rejection_reason: string | null;
+          rejected_at: string | null;
+          cancelled_at: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+      };
+      cancel_registration: {
+        Args: { p_event_id: string };
+        Returns: {
+          id: string;
+          event_id: string;
+          user_id: string;
+          status: "registered" | "cancelled";
+          created_at: string;
+        };
+      };
+      check_availability: {
+        Args: {
+          p_resource_id: string;
+          p_start_time: string;
+          p_end_time: string;
+          p_quantity: number;
+        };
+        Returns: {
+          available: boolean;
+          conflicts: number;
+          reason: string | null;
+        };
+      };
+      create_booking: {
+        Args: {
+          p_resource_id: string;
+          p_start_time: string;
+          p_end_time: string;
+          p_quantity: number;
+          p_booking_reason: string;
+          p_special_requirements: string;
+        };
+        Returns: {
+          id: string;
+          resource_id: string;
+          user_id: string;
+          start_time: string;
+          end_time: string;
+          quantity: number;
+          status: "pending" | "approved" | "rejected" | "cancelled" | "completed";
+          booking_reason: string | null;
+          special_requirements: string | null;
+          approved_by: string | null;
+          approved_at: string | null;
+          rejection_reason: string | null;
+          rejected_at: string | null;
+          cancelled_at: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+      };
       is_admin: {
         Args: Record<PropertyKey, never>;
         Returns: boolean;
+      };
+      register_for_event: {
+        Args: { p_event_id: string };
+        Returns: {
+          id: string;
+          event_id: string;
+          user_id: string;
+          status: "registered" | "cancelled";
+          created_at: string;
+        };
+      };
+      reject_booking: {
+        Args: { p_booking_id: string; p_rejection_reason: string };
+        Returns: {
+          id: string;
+          resource_id: string;
+          user_id: string;
+          start_time: string;
+          end_time: string;
+          quantity: number;
+          status: "pending" | "approved" | "rejected" | "cancelled" | "completed";
+          booking_reason: string | null;
+          special_requirements: string | null;
+          approved_by: string | null;
+          approved_at: string | null;
+          rejection_reason: string | null;
+          rejected_at: string | null;
+          cancelled_at: string | null;
+          created_at: string;
+          updated_at: string;
+        };
       };
     };
     Enums: Record<string, never>;

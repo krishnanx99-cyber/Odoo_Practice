@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
@@ -13,6 +13,11 @@ const mockedAdmin = {
 
 vi.mock("../lib/AuthContext", () => ({
   useAuth: () => ({ user: mockedAdmin }),
+}));
+
+const { approveBooking, rejectBooking } = vi.hoisted(() => ({
+  approveBooking: vi.fn().mockResolvedValue({ error: null }),
+  rejectBooking: vi.fn().mockResolvedValue({ error: null }),
 }));
 
 vi.mock("../lib/admin", () => ({
@@ -62,6 +67,8 @@ vi.mock("../lib/admin", () => ({
       profiles: { full_name: "Jane", email: "j@test.com", department: "Bio" },
     },
   ]),
+  approveBooking,
+  rejectBooking,
 }));
 
 function renderPage() {
@@ -73,6 +80,11 @@ function renderPage() {
 }
 
 describe("AdminBookingsPage", () => {
+  beforeEach(() => {
+    approveBooking.mockClear();
+    rejectBooking.mockClear();
+  });
+
   it("renders the page title and booking rows", async () => {
     renderPage();
 
@@ -108,5 +120,47 @@ describe("AdminBookingsPage", () => {
 
     expect(await screen.findByText("Rejection reason:")).toBeInTheDocument();
     expect(screen.getByText("Room double-booked")).toBeInTheDocument();
+  });
+
+  it("approves a pending booking", async () => {
+    const user = userEvent.setup();
+    renderPage();
+
+    await screen.findByText("Booking Requests");
+    await user.click(screen.getByRole("button", { name: "Approve" }));
+
+    expect(approveBooking).toHaveBeenCalledWith("booking-1");
+    expect(await screen.findByText("Booking approved.")).toBeInTheDocument();
+  });
+
+  it("rejects a pending booking with a reason", async () => {
+    const user = userEvent.setup();
+    renderPage();
+
+    await screen.findByText("Booking Requests");
+    await user.click(screen.getByRole("button", { name: "Reject" }));
+
+    const dialog = await screen.findByRole("dialog");
+    expect(dialog).toBeInTheDocument();
+
+    await user.type(screen.getByLabelText(/reason/i), "Capacity already filled");
+    await user.click(screen.getByRole("button", { name: "Reject Booking" }));
+
+    expect(rejectBooking).toHaveBeenCalledWith("booking-1", "Capacity already filled");
+    expect(await screen.findByText("Booking rejected.")).toBeInTheDocument();
+  });
+
+  it("requires a rejection reason", async () => {
+    const user = userEvent.setup();
+    renderPage();
+
+    await screen.findByText("Booking Requests");
+    await user.click(screen.getByRole("button", { name: "Reject" }));
+
+    await screen.findByRole("dialog");
+    await user.click(screen.getByRole("button", { name: "Reject Booking" }));
+
+    expect(rejectBooking).not.toHaveBeenCalled();
+    expect(screen.getByText("A rejection reason is required.")).toBeInTheDocument();
   });
 });
