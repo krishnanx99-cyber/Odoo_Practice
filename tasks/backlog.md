@@ -186,12 +186,11 @@ STATUS: pending
 ## Phase 11 — Polish
 
 ### TASK-030: UX polish
-OWNER: (none)
-STARTED: (none)
-STATUS: pending
+OWNER: opencode/nishant
+STARTED: 2026-08-20
+STATUS: claimed
 
-- Loading/empty/error states, success confirmations, responsive + hover/tap, accessibility, form validation, skeletons.
-- Deps: TASK-029.
+Claimed — see in-progress.md. (Frontend-only.)
 
 ### TASK-031: Final documentation
 OWNER: (none)
