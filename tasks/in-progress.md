@@ -4,4 +4,4 @@ Work being actively developed. One task = one owner at a time. See `tasks/README
 
 ## Active tasks
 
-(none)
+No tasks currently in progress.

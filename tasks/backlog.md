@@ -127,12 +127,11 @@ STATUS: completed
 Completed 2026-08-19 — see completed.md. (Frontend-only.)
 
 ### TASK-023: Admin resource/event management
-OWNER: (none)
-STARTED: (none)
-STATUS: pending
+OWNER: opencode/nishant
+STARTED: 2026-08-20
+STATUS: completed
 
-- Only after core student flow is stable. Create/edit resource + event, publish/cancel.
-- Deps: TASK-022.
+Completed 2026-08-20 — see completed.md. (Frontend-only.)
 
 ## Phase 9 — Testing
 

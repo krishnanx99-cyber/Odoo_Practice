@@ -3,6 +3,8 @@ import AppLayout from "./components/AppLayout";
 import ErrorBoundary from "./components/ErrorBoundary";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminBookingsPage from "./pages/AdminBookingsPage";
+import AdminEventsPage from "./pages/AdminEventsPage";
+import AdminResourcesPage from "./pages/AdminResourcesPage";
 import BookingDetailPage from "./pages/BookingDetailPage";
 import BookingPage from "./pages/BookingPage";
 import EventDetailPage from "./pages/EventDetailPage";
@@ -30,6 +32,8 @@ export const routes = [
           { path: "/my-bookings", element: <MyBookingsPage /> },
           { path: "/my-bookings/:bookingId", element: <BookingDetailPage /> },
           { path: "/admin/bookings", element: <AdminBookingsPage /> },
+          { path: "/admin/resources", element: <AdminResourcesPage /> },
+          { path: "/admin/events", element: <AdminEventsPage /> },
         ],
       },
       { path: "/login", element: <LoginPage /> },
