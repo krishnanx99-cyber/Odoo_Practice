@@ -31,6 +31,7 @@ merge.
 - **TASK-021 — Admin pending bookings (PR #24):** `AdminBookingsPage` (`/admin/bookings`) per booking-requests-management design: bookings table with requestor profile join, resource (name/category/location), date/time, quantity, StatusBadge; filters (search/status/resource/date); expandable detail row; admin nav link (role=admin), non-admin redirect. `lib/admin.ts` `fetchAllBookings` (RLS `bookings_admin_all`).
 - **TASK-022 — Admin approve/reject (PR #25):** Approve → `supabase.rpc("approve_booking")`; Reject → modal with required reason (max 500 chars) → `supabase.rpc("reject_booking")`. Buttons on pending rows only; success/error banner; busy state; refetch after action. Added all backend RPC signatures (`approve_booking`, `reject_booking`, `check_availability`, `create_booking`, `register_for_event`, `cancel_registration`) to `lib/database.types.ts` for typed `supabase.rpc`.
 - **TASK-026 — End-to-end student flow test (PR #27):** `frontend/src/App.flow.test.tsx` walks Login → Home → Event → Register → Resource → Book → Pending → My Bookings through the real route tree (`createMemoryRouter(routes)`), with the lib layer mocked and mutable auth state. `router.tsx` exports `routes` shared by app + test routers.
+- **TASK-023 — Admin resource/event management (PR #28):** `AdminResourcesPage` (`/admin/resources`) + `AdminEventsPage` (`/admin/events`): create/edit modal forms, search, Activate/Deactivate (resources), Publish/Cancel (events), inline location creator, status badges; shared `AdminNav` (Bookings/Resources/Events) on all admin pages. `lib/admin.ts`: `fetchAllResources`, `createResource`, `updateResource`, `fetchAllEvents` (locations+profiles joins), `createEvent`, `updateEvent`, `fetchAllLocations`, `createLocation`. Admin-only guard + redirect; routes in `router.tsx`. 47 tests pass.
 
 ## What is being developed
 
@@ -39,7 +40,7 @@ merge.
 ## What is not started
 
 - Frontend/infra: TASK-027 (Supabase production config), TASK-028 (Vercel deploy), TASK-029 (production smoke test), TASK-030 (UX polish), TASK-031 (final docs). Deps: 028←027, 029←028, 030←029, 031←030.
-- Optional: TASK-009 (admin guard/UX, likely already covered by role=admin checks), TASK-023 (broader admin UI).
+- Optional: TASK-009 (admin guard/UX, likely already covered by role=admin checks).
 - Backend: all DB/RPC work done (0001–0009 merged + live). Optional follow-up: none required.
 
 ## Live Supabase status (IMPORTANT for coordination)

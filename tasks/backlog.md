@@ -129,9 +129,9 @@ Completed 2026-08-19 — see completed.md. (Frontend-only.)
 ### TASK-023: Admin resource/event management
 OWNER: opencode/nishant
 STARTED: 2026-08-20
-STATUS: claimed
+STATUS: completed
 
-Claimed — see in-progress.md. (Frontend-only.)
+Completed 2026-08-20 — see completed.md. (Frontend-only.)
 
 ## Phase 9 — Testing
 
