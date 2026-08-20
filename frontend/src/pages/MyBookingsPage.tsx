@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, EmptyState, ErrorState, StatusBadge } from "../components/ui";
-import LoadingSpinner from "../components/LoadingSpinner";
+import { SkeletonList } from "../components/ui/Skeleton";
 import { useAuth } from "../lib/AuthContext";
 import { cancelBooking, fetchMyBookings, type BookingWithResource } from "../lib/bookings";
 
@@ -265,6 +265,7 @@ function MyBookingsPage() {
   }, [bookings]);
 
   const [cancellingId, setCancellingId] = useState<string | null>(null);
+  const [notice, setNotice] = useState<{ tone: "success" | "error"; message: string } | null>(null);
 
   async function handleCancel(booking: BookingWithResource) {
     if (!user) return;
@@ -272,19 +273,20 @@ function MyBookingsPage() {
     const { error } = await cancelBooking(booking.id);
     setCancellingId(null);
     if (error) {
-      setError(error);
+      setNotice({ tone: "error", message: error });
       return;
     }
+    setNotice({ tone: "success", message: "Booking cancelled." });
     try {
       const rows = await fetchMyBookings(user.id);
       setBookings(rows);
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Failed to refresh your bookings.");
+      setNotice({ tone: "error", message: err instanceof Error ? err.message : "Failed to refresh your bookings." });
     }
   }
 
   if (loading) {
-    return <LoadingSpinner label="Loading your bookings…" />;
+    return <SkeletonList label="Loading your bookings…" rows={4} />;
   }
 
   if (error) {
@@ -298,6 +300,30 @@ function MyBookingsPage() {
           My Bookings
         </h1>
       </div>
+
+      {notice ? (
+        <div
+          role="status"
+          className={`flex items-center gap-3 rounded-[0.5rem] border-2 border-on-background px-4 py-3 font-bold ${
+            notice.tone === "success"
+              ? "bg-secondary-container text-on-secondary-container"
+              : "bg-error-container text-on-error-container"
+          }`}
+        >
+          <span aria-hidden className="material-symbols-outlined">
+            {notice.tone === "success" ? "check_circle" : "error"}
+          </span>
+          <span>{notice.message}</span>
+          <button
+            type="button"
+            aria-label="Dismiss"
+            onClick={() => setNotice(null)}
+            className="ml-auto rounded-full px-2 py-1 text-sm hover:bg-on-background/10"
+          >
+            ✕
+          </button>
+        </div>
+      ) : null}
 
       {bookings.length === 0 ? (
         <EmptyState

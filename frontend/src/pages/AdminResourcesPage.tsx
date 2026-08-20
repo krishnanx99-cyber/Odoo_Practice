@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, EmptyState, ErrorState, Input, Select } from "../components/ui";
-import LoadingSpinner from "../components/LoadingSpinner";
+import { SkeletonCardGrid } from "../components/ui/Skeleton";
 import AdminNav from "../components/admin/AdminNav";
 import { useAuth } from "../lib/AuthContext";
 import {
@@ -73,7 +73,10 @@ function ResourceForm({
   }
 
   return (
-    <div className="flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-[1rem] border-2 border-on-background bg-surface shadow-[8px_8px_0_0_#1d1b20]">
+    <div
+      className="flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-[1rem] border-2 border-on-background bg-surface shadow-[8px_8px_0_0_#1d1b20]"
+      onClick={(event) => event.stopPropagation()}
+    >
       <div className="border-b-2 border-on-background bg-surface-variant px-6 py-4">
         <h2 className="font-headline text-xl font-bold text-on-background">
           {submitLabel}
@@ -306,6 +309,22 @@ function AdminResourcesPage() {
     setLocations(rows);
   }
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setEditing(null);
+        setCreating(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  function closeModal() {
+    setEditing(null);
+    setCreating(false);
+  }
+
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
     if (!q) return resources;
@@ -318,7 +337,7 @@ function AdminResourcesPage() {
   }, [resources, search]);
 
   if (loading) {
-    return <LoadingSpinner label="Loading resources…" />;
+    return <SkeletonCardGrid label="Loading resources…" />;
   }
 
   if (error) {
@@ -491,6 +510,7 @@ function AdminResourcesPage() {
           aria-modal="true"
           aria-label={editing ? "Edit resource" : "Create resource"}
           className="fixed inset-0 z-50 flex items-center justify-center bg-on-background/60 p-4"
+          onClick={closeModal}
         >
           <ResourceForm
             initial={formInitial}
@@ -498,7 +518,7 @@ function AdminResourcesPage() {
             saving={saving}
             submitLabel={editing ? "Save Changes" : "Create Resource"}
             onSubmit={(input) => void handleSave(input)}
-            onCancel={() => { setCreating(false); setEditing(null); }}
+            onCancel={closeModal}
           />
         </div>
       ) : null}

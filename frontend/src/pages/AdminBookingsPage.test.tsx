@@ -163,4 +163,18 @@ describe("AdminBookingsPage", () => {
     expect(rejectBooking).not.toHaveBeenCalled();
     expect(screen.getByText("A rejection reason is required.")).toBeInTheDocument();
   });
+
+  it("closes the reject dialog on Escape", async () => {
+    const user = userEvent.setup();
+    renderPage();
+
+    await screen.findByText("Booking Requests");
+    await user.click(screen.getByRole("button", { name: "Reject" }));
+
+    const dialog = await screen.findByRole("dialog");
+    expect(dialog).toBeInTheDocument();
+
+    await user.keyboard("{Escape}");
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
 });

@@ -8,7 +8,7 @@ import {
   Select,
   StatusBadge,
 } from "../components/ui";
-import LoadingSpinner from "../components/LoadingSpinner";
+import { SkeletonList } from "../components/ui/Skeleton";
 import { useAuth } from "../lib/AuthContext";
 import {
   approveBooking,
@@ -221,6 +221,14 @@ function AdminBookingsPage() {
     };
   }, [user, navigate]);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setRejectTarget(null);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   const resourceOptions = useMemo(() => {
     const names = new Map<string, string>();
     for (const booking of bookings) {
@@ -255,7 +263,7 @@ function AdminBookingsPage() {
   }, [bookings, search, status, resource, date]);
 
   if (loading) {
-    return <LoadingSpinner label="Loading booking requests…" />;
+    return <SkeletonList label="Loading booking requests…" rows={6} />;
   }
 
   if (error) {
@@ -405,8 +413,12 @@ function AdminBookingsPage() {
           aria-modal="true"
           aria-label="Reject booking"
           className="fixed inset-0 z-50 flex items-center justify-center bg-on-background/60 p-4"
+          onClick={() => setRejectTarget(null)}
         >
-          <div className="w-full max-w-md rounded-[1rem] border-2 border-on-background bg-surface p-6 shadow-[8px_8px_0_0_#1d1b20]">
+          <div
+            className="w-full max-w-md rounded-[1rem] border-2 border-on-background bg-surface p-6 shadow-[8px_8px_0_0_#1d1b20]"
+            onClick={(event) => event.stopPropagation()}
+          >
             <h2 className="font-headline text-xl font-bold text-on-background">
               Reject Booking Request
             </h2>
