@@ -176,9 +176,9 @@ STATUS: pending
 - Deps: TASK-027.
 
 ### TASK-029: Production smoke test
-OWNER: (none)
-STARTED: (none)
-STATUS: pending
+OWNER: opencode/manvar
+STARTED: 2026-08-20
+STATUS: completed (done 2026-08-20 — ran locally against live Supabase; Vercel deploy deferred. See `tasks/completed.md` + `docs/smoke-test.md`)
 
 - Login, Home, event detail/registration, resource detail/booking, availability, My Bookings, admin approval.
 - Deps: TASK-028.
