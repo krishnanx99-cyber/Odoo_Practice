@@ -31,7 +31,7 @@ export async function fetchAllBookings(): Promise<AdminBooking[]> {
   const { data, error } = await supabase
     .from("bookings")
     .select(
-      "id, resource_id, user_id, start_time, end_time, quantity, status, booking_reason, special_requirements, rejection_reason, rejected_at, cancelled_at, created_at, resources(name, category, image_url, locations(name)), profiles(full_name, email, department)",
+      "id, resource_id, user_id, start_time, end_time, quantity, status, booking_reason, special_requirements, rejection_reason, rejected_at, cancelled_at, created_at, resources(name, category, image_url, locations(name)), profiles!bookings_user_id_fkey(full_name, email, department)",
     )
     .order("start_time", { ascending: false });
 
